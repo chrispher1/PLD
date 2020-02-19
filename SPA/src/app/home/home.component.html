@@ -1,0 +1,9 @@
+  <div *ngIf="!currentlyLogged() && !toggleRegister ">
+      <app-login (registerMode) ="registerMode($event)"></app-login>
+  </div>  
+  <br/>
+  <div *ngIf="!currentlyLogged() && toggleRegister ">
+      <app-register (registerMode) ="registerMode($event)" ></app-register>
+  </div>
+
+
