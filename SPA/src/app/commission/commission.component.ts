@@ -267,6 +267,10 @@ export class CommissionComponent implements OnInit {
       );
       this.AllCommissionErrorCheckbox.nativeElement['checked'] = checked;     
   }
+
+  keyUpEnterKey(){    
+    this.loadCommissionError();
+  }
 }
 
 

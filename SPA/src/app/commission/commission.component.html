@@ -29,15 +29,23 @@
                 <div class="row">
                   <div class="col-sm-3 text-right">Policy Number</div>
                   <div class="col-sm-9">
-                      <input type="text" name="PolicyNumber" [(ngModel)]="commissionErrorSearchParam.policyNumber">                
+                      <input type="text" name="PolicyNumber" (keyup.enter) = "keyUpEnterKey()" [(ngModel)]="commissionErrorSearchParam.policyNumber">                
                   </div>   
               </div>   
               <div class="row">
                 <div class="col-sm-3 text-right">Policy Year</div>
                 <div class="col-sm-9">
-                    <input type="number" name="policyYearMin" [(ngModel)]="commissionErrorSearchParam.policyYearMin">
+                    <input type="number" name="policyYearMin"
+                    appNumeric
+                    numericType="number"
+                    (keyup.enter) = "keyUpEnterKey()"
+                    [(ngModel)]="commissionErrorSearchParam.policyYearMin">
                     &nbsp;
-                    <input type="number" name="policyYearMax" [(ngModel)]="commissionErrorSearchParam.policyYearMax">
+                    <input type="number" name="policyYearMax"
+                    appNumeric
+                    numericType="number"
+                    (keyup.enter) = "keyUpEnterKey()"
+                    [(ngModel)]="commissionErrorSearchParam.policyYearMax">
                 </div>   
             </div>   
             <div class="row">
@@ -52,33 +60,65 @@
             <div class="row">
               <div class="col-sm-3 text-right">Gross Premium Amount</div>
               <div class="col-sm-9">
-                  <input type="number" name="grossPremiumAmountErrorMin" [(ngModel)]="commissionErrorSearchParam.grossPremiumAmountMin">
+                  <input type="number" name="grossPremiumAmountErrorMin" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.grossPremiumAmountMin">
                   &nbsp;
-                  <input type="number" name="grossPremiumAmountErrorMax" [(ngModel)]="commissionErrorSearchParam.grossPremiumAmountMax">
+                  <input type="number" name="grossPremiumAmountErrorMax" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.grossPremiumAmountMax">
               </div>   
             </div>
             <div class="row">
               <div class="col-sm-3 text-right">Commission Premium Amount</div>
               <div class="col-sm-9">
-                  <input type="number" name="commissionPremiumAmountErrorMin" [(ngModel)]="commissionErrorSearchParam.commissionPremiumAmountMin">
+                  <input type="number" name="commissionPremiumAmountErrorMin" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionPremiumAmountMin">
                   &nbsp;
-                  <input type="number" name="commissionPremiumAmountErrorMax" [(ngModel)]="commissionErrorSearchParam.commissionPremiumAmountMax">
+                  <input type="number" name="commissionPremiumAmountErrorMax" 
+                  appNumeric
+                  numericType="decimal"
+                  (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionPremiumAmountMax">
               </div>   
             </div>
             <div class="row">
               <div class="col-sm-3 text-right">Commission Rate</div>
               <div class="col-sm-9">
-                  <input type="number" name="commissionRateErrorMin" [(ngModel)]="commissionErrorSearchParam.commissionRateMin">
+                  <input type="number" name="commissionRateErrorMin" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionRateMin">
                   &nbsp;
-                  <input type="number" name="commissionRateErrorMax" [(ngModel)]="commissionErrorSearchParam.commissionRateMax">
+                  <input type="number" name="commissionRateErrorMax" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionRateMax">
               </div>   
             </div>
             <div class="row">
               <div class="col-sm-3 text-right">Commission Amount</div>
               <div class="col-sm-9">
-                  <input type="number" name="commissionAmountErrorMin" [(ngModel)]="commissionErrorSearchParam.commissionAmountMin">
+                  <input type="number" name="commissionAmountErrorMin" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionAmountMin">
                   &nbsp;
-                  <input type="number" name="commissionAmountErrorMax" [(ngModel)]="commissionErrorSearchParam.commissionAmountMax">
+                  <input type="number" name="commissionAmountErrorMax" 
+                    appNumeric
+                    numericType="decimal"
+                    (keyup.enter) = "keyUpEnterKey()"
+                  [(ngModel)]="commissionErrorSearchParam.commissionAmountMax">
               </div>   
             </div>
             <div class="row">
