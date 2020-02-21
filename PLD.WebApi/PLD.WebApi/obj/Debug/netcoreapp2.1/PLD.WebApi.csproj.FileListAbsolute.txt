@@ -1,0 +1,17 @@
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\appsettings.Development.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\appsettings.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\libman.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\PLD.WebApi.deps.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\PLD.WebApi.runtimeconfig.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\PLD.WebApi.runtimeconfig.dev.json
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\PLD.WebApi.dll
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\PLD.WebApi.pdb
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.RazorAssemblyInfo.cache
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.RazorAssemblyInfo.cs
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.AssemblyInfoInputs.cache
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.AssemblyInfo.cs
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.RazorTargetAssemblyInfo.cache
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.dll
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.pdb
+D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.csprojAssemblyReference.cache
