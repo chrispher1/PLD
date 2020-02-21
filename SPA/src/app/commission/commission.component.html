@@ -8,7 +8,7 @@
       <tab heading="Error">
           <div class="row">&nbsp;</div>
           <form #form="ngForm" (ngSubmit) = "loadCommissionError()" novalidate>
-              <div class="row">
+              <div class="row" style="padding-bottom: 10px;">
                   <div class="col-sm-3 text-right">Carrier</div>
                   <div class="col-sm-9">
                       <select [(ngModel)]="commissionErrorSearchParam.carrier" name="commissionErrorSearchParam.carrier">
@@ -17,7 +17,7 @@
                       </select>
                   </div>   
                 </div>
-                <div class="row">
+                <div class="row" style="padding-bottom: 10px;">
                   <div class="col-sm-3 text-right">Product</div>
                   <div class="col-sm-9">                    
                       <select [(ngModel)]="commissionErrorSearchParam.product" name="commissionErrorSearchParam.product">
@@ -26,13 +26,13 @@
                       </select>
                   </div>   
                 </div>
-                <div class="row">
+                <div class="row" style="padding-bottom: 10px;">
                   <div class="col-sm-3 text-right">Policy Number</div>
                   <div class="col-sm-9">
                       <input type="text" name="PolicyNumber" (keyup.enter) = "keyUpEnterKey()" [(ngModel)]="commissionErrorSearchParam.policyNumber">                
                   </div>   
               </div>   
-              <div class="row">
+              <div class="row" style="padding-bottom: 10px;">
                 <div class="col-sm-3 text-right">Policy Year</div>
                 <div class="col-sm-9">
                     <input type="number" name="policyYearMin"
@@ -48,7 +48,7 @@
                     [(ngModel)]="commissionErrorSearchParam.policyYearMax">
                 </div>   
             </div>   
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Activity</div>
               <div class="col-sm-9">
                   <select [(ngModel)]="commissionErrorSearchParam.activity" name="commissionErrorSearchParam.activity">
@@ -57,7 +57,7 @@
                   </select>
               </div>   
             </div> 
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Gross Premium Amount</div>
               <div class="col-sm-9">
                   <input type="number" name="grossPremiumAmountErrorMin" 
@@ -73,7 +73,7 @@
                   [(ngModel)]="commissionErrorSearchParam.grossPremiumAmountMax">
               </div>   
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Commission Premium Amount</div>
               <div class="col-sm-9">
                   <input type="number" name="commissionPremiumAmountErrorMin" 
@@ -89,7 +89,7 @@
                   [(ngModel)]="commissionErrorSearchParam.commissionPremiumAmountMax">
               </div>   
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Commission Rate</div>
               <div class="col-sm-9">
                   <input type="number" name="commissionRateErrorMin" 
@@ -105,7 +105,7 @@
                   [(ngModel)]="commissionErrorSearchParam.commissionRateMax">
               </div>   
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Commission Amount</div>
               <div class="col-sm-9">
                   <input type="number" name="commissionAmountErrorMin" 
@@ -121,7 +121,7 @@
                   [(ngModel)]="commissionErrorSearchParam.commissionAmountMax">
               </div>   
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom: 10px;">
               <div class="col-sm-3 text-right">Status</div>
               <div class="col-sm-9">
                   <select [(ngModel)] ="commissionErrorSearchParam.status" name="commissionErrorSearchParam.status">
@@ -130,7 +130,7 @@
                   </select>
               </div>   
             </div>         
-                <div class="row">
+                <div class="row" style="padding-bottom: 10px;">
                     <div class="col-sm-3 text-right">Transaction Date</div>
                     <div class="col-sm-9">
                         <input type="date" name="transactionDateMin" [(ngModel)]="commissionErrorSearchParam.transactionDateMin">
