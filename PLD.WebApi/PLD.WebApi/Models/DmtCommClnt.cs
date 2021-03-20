@@ -21,7 +21,7 @@ namespace PLD.WebApi.Models
         public string ModById { get; set; }
         public string SrcSsnTinTypCd { get; set; }
 
-        public DmtSsnTinTypCd ClntSsnTinTypCdNavigation { get; set; }
-        public DmtComm Comm { get; set; }
+        public virtual DmtSsnTinTypCd ClntSsnTinTypCdNavigation { get; set; }
+        public virtual DmtComm Comm { get; set; }
     }
 }

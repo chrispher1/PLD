@@ -23,9 +23,9 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtActCd ActCdNavigation { get; set; }
-        public DmtCarr Carr { get; set; }
-        public DmtStCd StCdNavigation { get; set; }
-        public DmtTmCd TmCdNavigation { get; set; }
+        public virtual DmtActCd ActCdNavigation { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtStCd StCdNavigation { get; set; }
+        public virtual DmtTmCd TmCdNavigation { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace PLD.WebApi.Models
             DmtCommErr = new HashSet<DmtCommErr>();
             DmtProdRt = new HashSet<DmtProdRt>();
             DmtProdTypRt = new HashSet<DmtProdTypRt>();
+            DmtTmActMap = new HashSet<DmtTmActMap>();
         }
 
         public string TmCd { get; set; }
@@ -20,9 +21,10 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public ICollection<DmtComm> DmtComm { get; set; }
-        public ICollection<DmtCommErr> DmtCommErr { get; set; }
-        public ICollection<DmtProdRt> DmtProdRt { get; set; }
-        public ICollection<DmtProdTypRt> DmtProdTypRt { get; set; }
+        public virtual ICollection<DmtComm> DmtComm { get; set; }
+        public virtual ICollection<DmtCommErr> DmtCommErr { get; set; }
+        public virtual ICollection<DmtProdRt> DmtProdRt { get; set; }
+        public virtual ICollection<DmtProdTypRt> DmtProdTypRt { get; set; }
+        public virtual ICollection<DmtTmActMap> DmtTmActMap { get; set; }
     }
 }

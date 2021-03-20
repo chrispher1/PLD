@@ -13,8 +13,8 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public DmtProd Prod { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual DmtProd Prod { get; set; }
     }
 }

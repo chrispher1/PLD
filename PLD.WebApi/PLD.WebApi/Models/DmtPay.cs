@@ -28,10 +28,10 @@ namespace PLD.WebApi.Models
         public string ValStmntById { get; set; }
         public DateTime? StmntId { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public ICollection<DmtCashReconPay> DmtCashReconPay { get; set; }
-        public ICollection<DmtPayCmnt> DmtPayCmnt { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual ICollection<DmtCashReconPay> DmtCashReconPay { get; set; }
+        public virtual ICollection<DmtPayCmnt> DmtPayCmnt { get; set; }
     }
 }

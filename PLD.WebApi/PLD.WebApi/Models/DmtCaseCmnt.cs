@@ -11,6 +11,6 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtBy { get; set; }
 
-        public DmtCase Case { get; set; }
+        public virtual DmtCase Case { get; set; }
     }
 }

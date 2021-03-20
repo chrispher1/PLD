@@ -10,11 +10,14 @@ import { AlertifyService } from '../_service/alertify.service';
 export class HomeComponent implements OnInit {
   toggleRegister = false;
   constructor(private authService: AuthService) { }
-
+  userName: string = null;
   ngOnInit() {
   }
 
   currentlyLogged () {
+    if (this.authService.currentlyLogged()) {
+      this.userName = localStorage.getItem('userName');
+    }
     return this.authService.currentlyLogged();
   }
   

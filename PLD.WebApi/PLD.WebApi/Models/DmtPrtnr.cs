@@ -20,6 +20,6 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public ICollection<DmtPrtnrFeed> DmtPrtnrFeed { get; set; }
+        public virtual ICollection<DmtPrtnrFeed> DmtPrtnrFeed { get; set; }
     }
 }

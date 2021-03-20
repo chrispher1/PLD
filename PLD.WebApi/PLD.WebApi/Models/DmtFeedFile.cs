@@ -12,7 +12,7 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtBy { get; set; }
 
-        public DmtFeed Feed { get; set; }
-        public DmtPrtnrFeedFile PrtnrFeedFile { get; set; }
+        public virtual DmtFeed Feed { get; set; }
+        public virtual DmtPrtnrFeedFile PrtnrFeedFile { get; set; }
     }
 }

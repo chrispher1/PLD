@@ -25,9 +25,7 @@ namespace PLD.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var list = await _repository.GetRecords();
-            var listToReturn = _mapper.Map<IEnumerable<ProductDTO>>(list);
-
+            var listToReturn = await _repository.GetRecords();
             return Ok(listToReturn);
         }
     }

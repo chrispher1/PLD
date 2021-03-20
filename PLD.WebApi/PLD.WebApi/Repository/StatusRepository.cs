@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PLD.WebApi.DTO;
 
 namespace PLD.WebApi.Repository
 {
@@ -14,9 +15,14 @@ namespace PLD.WebApi.Repository
             _context = context;
         }
 
-        public async Task<List<DmtStatCd>> GetRecords()
+        public async Task<List<StatusDTO>> GetRecords()
         {
-            var list = await _context.DmtStatCd.ToListAsync();            
+            var list = await _context.DmtStatCd.Select( o => new StatusDTO
+            {
+                StatCd = o.StatCd,
+                DescTxt = o.DescTxt
+            }
+            ).ToListAsync();            
             return list;
         }
     }

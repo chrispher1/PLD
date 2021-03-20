@@ -5,6 +5,11 @@ namespace PLD.WebApi.Models
 {
     public partial class DmtCalEntry
     {
+        public DmtCalEntry()
+        {
+            DmtFeedSchedLog = new HashSet<DmtFeedSchedLog>();
+        }
+
         public int CalEntryId { get; set; }
         public int CalId { get; set; }
         public int? PrntCalEntryId { get; set; }
@@ -21,7 +26,6 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtCalEntry CalEntry { get; set; }
-        public DmtCalEntry InverseCalEntry { get; set; }
+        public virtual ICollection<DmtFeedSchedLog> DmtFeedSchedLog { get; set; }
     }
 }

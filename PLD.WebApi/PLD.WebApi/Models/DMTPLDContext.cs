@@ -23,10 +23,12 @@ namespace PLD.WebApi.Models
         public virtual DbSet<DmtCalEntry> DmtCalEntry { get; set; }
         public virtual DbSet<DmtCarr> DmtCarr { get; set; }
         public virtual DbSet<DmtCarrFbga> DmtCarrFbga { get; set; }
+        public virtual DbSet<DmtCarrSchedLog> DmtCarrSchedLog { get; set; }
         public virtual DbSet<DmtCase> DmtCase { get; set; }
         public virtual DbSet<DmtCaseAddCov> DmtCaseAddCov { get; set; }
         public virtual DbSet<DmtCaseAddCovHist> DmtCaseAddCovHist { get; set; }
         public virtual DbSet<DmtCaseAgnt> DmtCaseAgnt { get; set; }
+        public virtual DbSet<DmtCaseAgntHist> DmtCaseAgntHist { get; set; }
         public virtual DbSet<DmtCaseCmnt> DmtCaseCmnt { get; set; }
         public virtual DbSet<DmtCaseHist> DmtCaseHist { get; set; }
         public virtual DbSet<DmtCaseLifePartic> DmtCaseLifePartic { get; set; }
@@ -40,6 +42,8 @@ namespace PLD.WebApi.Models
         public virtual DbSet<DmtCaseWpRsvp> DmtCaseWpRsvp { get; set; }
         public virtual DbSet<DmtCaseWpSnpsht> DmtCaseWpSnpsht { get; set; }
         public virtual DbSet<DmtCaseWpSnpshtHist> DmtCaseWpSnpshtHist { get; set; }
+        public virtual DbSet<DmtCaserep> DmtCaserep { get; set; }
+        public virtual DbSet<DmtCasestg> DmtCasestg { get; set; }
         public virtual DbSet<DmtCashRecon> DmtCashRecon { get; set; }
         public virtual DbSet<DmtCashReconCmnt> DmtCashReconCmnt { get; set; }
         public virtual DbSet<DmtCashReconPay> DmtCashReconPay { get; set; }
@@ -60,6 +64,7 @@ namespace PLD.WebApi.Models
         public virtual DbSet<DmtFbga> DmtFbga { get; set; }
         public virtual DbSet<DmtFeed> DmtFeed { get; set; }
         public virtual DbSet<DmtFeedFile> DmtFeedFile { get; set; }
+        public virtual DbSet<DmtFeedSchedLog> DmtFeedSchedLog { get; set; }
         public virtual DbSet<DmtGa> DmtGa { get; set; }
         public virtual DbSet<DmtMsgCd> DmtMsgCd { get; set; }
         public virtual DbSet<DmtMsgTypCd> DmtMsgTypCd { get; set; }
@@ -76,26 +81,22 @@ namespace PLD.WebApi.Models
         public virtual DbSet<DmtPrtnrFeed> DmtPrtnrFeed { get; set; }
         public virtual DbSet<DmtPrtnrFeedFile> DmtPrtnrFeedFile { get; set; }
         public virtual DbSet<DmtSsnTinTypCd> DmtSsnTinTypCd { get; set; }
-        public virtual DbSet<DmtStatCd> DmtStatCd { get; set; }
         public virtual DbSet<DmtStCd> DmtStCd { get; set; }
+        public virtual DbSet<DmtStatCd> DmtStatCd { get; set; }
+        public virtual DbSet<DmtTmActMap> DmtTmActMap { get; set; }
         public virtual DbSet<DmtTmCd> DmtTmCd { get; set; }
         public virtual DbSet<DmtValMap> DmtValMap { get; set; }
         public virtual DbSet<DmtWpCalcCd> DmtWpCalcCd { get; set; }
         public virtual DbSet<DmtWpCalcRule> DmtWpCalcRule { get; set; }
-        public DbSet<User> Users{ get; set;}
-        // Unable to generate entity type for table 'dbo.DMT_FEED_SCHED_LOG'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.DMT_CASE_AGNT_HIST'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.DMT_TM_ACT_MAP'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.DMT_CASEREP'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.DMT_CASESTG'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.DMT_CARR_SCHED_LOG'. Please see the warning messages.
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=MSI;Database=DMTPLD;Trusted_Connection=True;");
-            }
+//             if (!optionsBuilder.IsConfigured)
+//             {
+// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                 optionsBuilder.UseSqlServer("Server=MSI;Database=DMTPLD;Trusted_Connection=True;");
+//             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -108,8 +109,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.ActCd)
                     .HasColumnName("ACT_CD")
-                    .HasMaxLength(4)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(4);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -239,8 +239,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.AdtTypCd)
                     .HasColumnName("ADT_TYP_CD")
-                    .HasMaxLength(1)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(1);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -308,9 +307,7 @@ namespace PLD.WebApi.Models
 
                 entity.ToTable("DMT_CAL_ENTRY");
 
-                entity.Property(e => e.CalEntryId)
-                    .HasColumnName("CAL_ENTRY_ID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.CalEntryId).HasColumnName("CAL_ENTRY_ID");
 
                 entity.Property(e => e.CalId).HasColumnName("CAL_ID");
 
@@ -365,12 +362,6 @@ namespace PLD.WebApi.Models
                     .IsRequired()
                     .HasColumnName("SUBJ_TXT")
                     .HasMaxLength(500);
-
-                entity.HasOne(d => d.CalEntry)
-                    .WithOne(p => p.InverseCalEntry)
-                    .HasForeignKey<DmtCalEntry>(d => d.CalEntryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DMT_CAL_ENTRY_DMT_CAL_ENTRY");
             });
 
             modelBuilder.Entity<DmtCarr>(entity =>
@@ -461,6 +452,26 @@ namespace PLD.WebApi.Models
                     .HasForeignKey(d => d.GaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DMT_CARR_FBGA_DMT_GA");
+            });
+
+            modelBuilder.Entity<DmtCarrSchedLog>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("DMT_CARR_SCHED_LOG");
+
+                entity.Property(e => e.CalEntryId).HasColumnName("CAL_ENTRY_ID");
+
+                entity.Property(e => e.CarrId).HasColumnName("CARR_ID");
+
+                entity.Property(e => e.CrtBy)
+                    .IsRequired()
+                    .HasColumnName("CRT_BY")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.CrtDt)
+                    .HasColumnName("CRT_DT")
+                    .HasColumnType("datetime2(0)");
             });
 
             modelBuilder.Entity<DmtCase>(entity =>
@@ -1077,6 +1088,122 @@ namespace PLD.WebApi.Models
                     .HasForeignKey(d => d.CaseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DMT_CASE_AGNT_DMT_CASE");
+            });
+
+            modelBuilder.Entity<DmtCaseAgntHist>(entity =>
+            {
+                entity.HasKey(e => new { e.CaseId, e.CaseHistTs });
+
+                entity.ToTable("DMT_CASE_AGNT_HIST");
+
+                entity.Property(e => e.CaseId).HasColumnName("CASE_ID");
+
+                entity.Property(e => e.CaseHistTs)
+                    .HasColumnName("CASE_HIST_TS")
+                    .HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.AgntSeqRecNum).HasColumnName("AGNT_SEQ_REC_NUM");
+
+                entity.Property(e => e.CrtBy)
+                    .IsRequired()
+                    .HasColumnName("CRT_BY")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.CrtDt)
+                    .HasColumnName("CRT_DT")
+                    .HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.FaAsstEmail)
+                    .HasColumnName("FA_ASST_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaAsstPhone)
+                    .HasColumnName("FA_ASST_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaAsstname)
+                    .HasColumnName("FA_ASSTNAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaBusinessCity)
+                    .HasColumnName("FA_BUSINESS_CITY")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessCountry)
+                    .HasColumnName("FA_BUSINESS_COUNTRY")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessState)
+                    .HasColumnName("FA_BUSINESS_STATE")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessStreet1)
+                    .HasColumnName("FA_BUSINESS_STREET_1")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessStreet2)
+                    .HasColumnName("FA_BUSINESS_STREET_2")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessZipCode)
+                    .HasColumnName("FA_BUSINESS_ZIP_CODE")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaEmail)
+                    .HasColumnName("FA_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaFirmRegion)
+                    .HasColumnName("FA_FIRM_REGION")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaLatitude)
+                    .HasColumnName("FA_LATITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaLongtitude)
+                    .HasColumnName("FA_LONGTITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaName)
+                    .HasColumnName("FA_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaNpn)
+                    .HasColumnName("FA_NPN")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaPhone)
+                    .HasColumnName("FA_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaPosition)
+                    .HasColumnName("FA_POSITION")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.FaSlContactId)
+                    .HasColumnName("FA_SL_CONTACT_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.ModBy)
+                    .HasColumnName("MOD_BY")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ModDt)
+                    .HasColumnName("MOD_DT")
+                    .HasColumnType("datetime2(0)");
+
+                entity.HasOne(d => d.Case)
+                    .WithMany(p => p.DmtCaseAgntHist)
+                    .HasForeignKey(d => d.CaseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMT_CASE_AGNT_HIST_DMT_CASE");
+
+                entity.HasOne(d => d.CaseNavigation)
+                    .WithOne(p => p.DmtCaseAgntHist)
+                    .HasForeignKey<DmtCaseAgntHist>(d => new { d.CaseId, d.CaseHistTs })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMT_CASE_AGNT_HIST_DMT_CASE_HIST");
             });
 
             modelBuilder.Entity<DmtCaseCmnt>(entity =>
@@ -2223,6 +2350,1100 @@ namespace PLD.WebApi.Models
                     .HasColumnType("numeric(16, 2)");
             });
 
+            modelBuilder.Entity<DmtCaserep>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("DMT_CASEREP");
+
+                entity.Property(e => e.AdditionalCoverages)
+                    .HasColumnName("ADDITIONAL_COVERAGES")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.AdditionalCoveragesIndicator)
+                    .HasColumnName("ADDITIONAL_COVERAGES_INDICATOR")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.AddlCvgCaseNum)
+                    .HasColumnName("ADDL_CVG_CASE_NUM")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.AddlCvgCoverage)
+                    .HasColumnName("ADDL_CVG_COVERAGE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCoverageLives)
+                    .HasColumnName("ADDL_CVG_COVERAGE_LIVES")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCoverageType)
+                    .HasColumnName("ADDL_CVG_COVERAGE_TYPE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCurrNumUnits).HasColumnName("ADDL_CVG_CURR_NUM_UNITS");
+
+                entity.Property(e => e.AddlCvgCurrentAmt)
+                    .HasColumnName("ADDL_CVG_CURRENT_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AddlCvgDeathBeneAmt)
+                    .HasColumnName("ADDL_CVG_DEATH_BENE_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AddlCvgLastmodifiedDate).HasColumnName("ADDL_CVG_LASTMODIFIED_DATE");
+
+                entity.Property(e => e.AddlCvgPlanName)
+                    .HasColumnName("ADDL_CVG_PLAN_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgSlId)
+                    .HasColumnName("ADDL_CVG_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.AddlCvgValuePerUnit)
+                    .HasColumnName("ADDL_CVG_VALUE_PER_UNIT")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Amount1035)
+                    .HasColumnName("AMOUNT_1035")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AnnualizedPremium)
+                    .HasColumnName("ANNUALIZED_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AppReceiptDate).HasColumnName("APP_RECEIPT_DATE");
+
+                entity.Property(e => e.AppSignDate).HasColumnName("APP_SIGN_DATE");
+
+                entity.Property(e => e.ApplicationDate).HasColumnName("APPLICATION_DATE");
+
+                entity.Property(e => e.ApplicationId)
+                    .HasColumnName("APPLICATION_ID")
+                    .HasMaxLength(12);
+
+                entity.Property(e => e.ApplicationType)
+                    .HasColumnName("APPLICATION_TYPE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ApprovalDate).HasColumnName("APPROVAL_DATE");
+
+                entity.Property(e => e.BalanceOfPremiumDue)
+                    .HasColumnName("BALANCE_OF_PREMIUM_DUE")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.CarrierAcctName)
+                    .HasColumnName("CARRIER_ACCT_NAME")
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.CarrierCasemgrEmail)
+                    .HasColumnName("CARRIER_CASEMGR_EMAIL")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.CarrierCasemgrName)
+                    .HasColumnName("CARRIER_CASEMGR_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CarrierCasemgrPhone)
+                    .HasColumnName("CARRIER_CASEMGR_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CarrierInfo)
+                    .HasColumnName("CARRIER_INFO")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.CarrierUnderwriterEmail)
+                    .HasColumnName("CARRIER_UNDERWRITER_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CarrierUnderwriterName)
+                    .HasColumnName("CARRIER_UNDERWRITER_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CarrierUnderwriterPhone)
+                    .HasColumnName("CARRIER_UNDERWRITER_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CarrierUwContactid)
+                    .HasColumnName("CARRIER_UW_CONTACTID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CarrierUwRole)
+                    .HasColumnName("CARRIER_UW_ROLE")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.Carrierid)
+                    .HasColumnName("CARRIERID")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.CaseIdC)
+                    .HasColumnName("CASE_ID_C")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseMgrEmail)
+                    .HasColumnName("CASE_MGR_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CaseMgrName)
+                    .HasColumnName("CASE_MGR_NAME")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.CaseMgrPhone)
+                    .HasColumnName("CASE_MGR_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CaseMgrRolename)
+                    .HasColumnName("CASE_MGR_ROLENAME")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseMgrSlId)
+                    .HasColumnName("CASE_MGR_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CaseStatus)
+                    .HasColumnName("CASE_STATUS")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseType)
+                    .HasColumnName("CASE_TYPE")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.CashWithApp)
+                    .HasColumnName("CASH_WITH_APP")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ClassName)
+                    .HasColumnName("CLASS_NAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.CmSlId)
+                    .HasColumnName("CM_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CommPaidDate).HasColumnName("COMM_PAID_DATE");
+
+                entity.Property(e => e.CoverageType)
+                    .HasColumnName("COVERAGE_TYPE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CoveredLives)
+                    .HasColumnName("COVERED_LIVES")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.DateEnteredC).HasColumnName("DATE_ENTERED_C");
+
+                entity.Property(e => e.DeathBenefitAmt)
+                    .HasColumnName("DEATH_BENEFIT_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.DeathBenefitType)
+                    .HasColumnName("DEATH_BENEFIT_TYPE")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.DistributionCompany)
+                    .HasColumnName("DISTRIBUTION_COMPANY")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.DistributionCompany2)
+                    .HasColumnName("DISTRIBUTION_COMPANY_2")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.ExcessPremium)
+                    .HasColumnName("EXCESS_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ExtractDt)
+                    .HasColumnName("EXTRACT_DT")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.FaAsstEmail)
+                    .HasColumnName("FA_ASST_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaAsstPhone)
+                    .HasColumnName("FA_ASST_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaAsstname)
+                    .HasColumnName("FA_ASSTNAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaBusinessCity)
+                    .HasColumnName("FA_BUSINESS_CITY")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessCountry)
+                    .HasColumnName("FA_BUSINESS_COUNTRY")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessState)
+                    .HasColumnName("FA_BUSINESS_STATE")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessStreet1)
+                    .HasColumnName("FA_BUSINESS_STREET_1")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessStreet2)
+                    .HasColumnName("FA_BUSINESS_STREET_2")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessZipCode)
+                    .HasColumnName("FA_BUSINESS_ZIP_CODE")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaEmail)
+                    .HasColumnName("FA_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaFirmRegion)
+                    .HasColumnName("FA_FIRM_REGION")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaLatitude)
+                    .HasColumnName("FA_LATITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaLongtitude)
+                    .HasColumnName("FA_LONGTITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaName)
+                    .HasColumnName("FA_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaNpn)
+                    .HasColumnName("FA_NPN")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaPhone)
+                    .HasColumnName("FA_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaPosition)
+                    .HasColumnName("FA_POSITION")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.FaSlContactId)
+                    .HasColumnName("FA_SL_CONTACT_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.FaceAmt)
+                    .HasColumnName("FACE_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.FinancialAdvisorInfo)
+                    .HasColumnName("FINANCIAL_ADVISOR_INFO")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.FlatEndDate).HasColumnName("FLAT_END_DATE");
+
+                entity.Property(e => e.FlatExtraAmount)
+                    .HasColumnName("FLAT_EXTRA_AMOUNT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ImportantDates)
+                    .HasColumnName("IMPORTANT_DATES")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.InitialPremiumPayment)
+                    .HasColumnName("INITIAL_PREMIUM_PAYMENT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.IssueAge).HasColumnName("ISSUE_AGE");
+
+                entity.Property(e => e.IssueDate).HasColumnName("ISSUE_DATE");
+
+                entity.Property(e => e.IssueState)
+                    .HasColumnName("ISSUE_STATE")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.IwEmail)
+                    .HasColumnName("IW_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IwName)
+                    .HasColumnName("IW_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.IwPhone)
+                    .HasColumnName("IW_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.IwRoleName)
+                    .HasColumnName("IW_ROLE_NAME")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.IwSlId)
+                    .HasColumnName("IW_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.LastActivityDate).HasColumnName("LAST_ACTIVITY_DATE");
+
+                entity.Property(e => e.LastUwActivity)
+                    .HasColumnName("LAST_UW_ACTIVITY")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.LifePartClassName)
+                    .HasColumnName("LIFE_PART_CLASS_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartCoverageName)
+                    .HasColumnName("LIFE_PART_COVERAGE_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartIssueAge).HasColumnName("LIFE_PART_ISSUE_AGE");
+
+                entity.Property(e => e.LifePartIssueGender)
+                    .HasColumnName("LIFE_PART_ISSUE_GENDER")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.LifePartLastModifiedDate)
+                    .HasColumnName("LIFE_PART_LAST_MODIFIED_DATE")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.LifePartPermRating)
+                    .HasColumnName("LIFE_PART_PERM_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartPermTableRating)
+                    .HasColumnName("LIFE_PART_PERM_TABLE_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartRole)
+                    .HasColumnName("LIFE_PART_ROLE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartSlId)
+                    .HasColumnName("LIFE_PART_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.LifePartTempRating)
+                    .HasColumnName("LIFE_PART_TEMP_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartTobacco)
+                    .HasColumnName("LIFE_PART_TOBACCO")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartUwClass)
+                    .HasColumnName("LIFE_PART_UW_CLASS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartUwSubClass)
+                    .HasColumnName("LIFE_PART_UW_SUB_CLASS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifeParticipant)
+                    .HasColumnName("LIFE_PARTICIPANT")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.ModalPremium)
+                    .HasColumnName("MODAL_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.MoneyTransferType)
+                    .HasColumnName("MONEY_TRANSFER_TYPE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.PaymentMethod)
+                    .HasColumnName("PAYMENT_METHOD")
+                    .HasMaxLength(75);
+
+                entity.Property(e => e.PermanentTableRating)
+                    .HasColumnName("PERMANENT_TABLE_RATING")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.PlacementExpDate).HasColumnName("PLACEMENT_EXP_DATE");
+
+                entity.Property(e => e.PolicyDetailPolicyBaseCoverage)
+                    .HasColumnName("POLICY_DETAIL_POLICY_BASE_COVERAGE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PolicyEffDate).HasColumnName("POLICY_EFF_DATE");
+
+                entity.Property(e => e.PolicyNumber)
+                    .HasColumnName("POLICY_NUMBER")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PolicyPlacedDate).HasColumnName("POLICY_PLACED_DATE");
+
+                entity.Property(e => e.PremiumInfo)
+                    .HasColumnName("PREMIUM_INFO")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.PremiumMode)
+                    .HasColumnName("PREMIUM_MODE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PrimInsCity)
+                    .HasColumnName("PRIM_INS_CITY")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PrimInsFirstname)
+                    .HasColumnName("PRIM_INS_FIRSTNAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsIssueAge).HasColumnName("PRIM_INS_ISSUE_AGE");
+
+                entity.Property(e => e.PrimInsLastname)
+                    .HasColumnName("PRIM_INS_LASTNAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsMiddlename)
+                    .HasColumnName("PRIM_INS_MIDDLENAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsState)
+                    .HasColumnName("PRIM_INS_STATE")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.PrimInsSuffix)
+                    .HasColumnName("PRIM_INS_SUFFIX")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.PrimInsZip)
+                    .HasColumnName("PRIM_INS_ZIP")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.PrimaryInsured)
+                    .HasColumnName("PRIMARY_INSURED")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.ProductName)
+                    .HasColumnName("PRODUCT_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.ProductType)
+                    .HasColumnName("PRODUCT_TYPE")
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.RecordType)
+                    .HasColumnName("RECORD_TYPE")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.RsvpContractNumber)
+                    .HasColumnName("RSVP_CONTRACT_NUMBER")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.RsvpEmail)
+                    .HasColumnName("RSVP_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RsvpName)
+                    .HasColumnName("RSVP_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.RsvpPhone)
+                    .HasColumnName("RSVP_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.RsvpRoleName)
+                    .HasColumnName("RSVP_ROLE_NAME")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.RsvpSlId)
+                    .HasColumnName("RSVP_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.RsvpStaffCode)
+                    .HasColumnName("RSVP_STAFF_CODE")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.RsvpTerritory)
+                    .HasColumnName("RSVP_TERRITORY")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.SlCarrierCmContactid)
+                    .HasColumnName("SL_CARRIER_CM_CONTACTID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.SlCaseId)
+                    .HasColumnName("SL_CASE_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("STATUS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.StatusDateC).HasColumnName("STATUS_DATE_C");
+
+                entity.Property(e => e.StatusReasonC)
+                    .HasColumnName("STATUS_REASON_C")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.SubStatus)
+                    .HasColumnName("SUB_STATUS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TargetPremAmt)
+                    .HasColumnName("TARGET_PREM_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.TobaccoUsage)
+                    .HasColumnName("TOBACCO_USAGE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.TotalCashWithApp)
+                    .HasColumnName("TOTAL_CASH_WITH_APP")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.UwClass)
+                    .HasColumnName("UW_CLASS")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.WeightedPremiumMeasure)
+                    .HasColumnName("WEIGHTED_PREMIUM_MEASURE")
+                    .HasColumnType("numeric(16, 2)");
+            });
+
+            modelBuilder.Entity<DmtCasestg>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("DMT_CASESTG");
+
+                entity.Property(e => e.AdditionalCoverages)
+                    .HasColumnName("ADDITIONAL_COVERAGES")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.AdditionalCoveragesIndicator)
+                    .HasColumnName("ADDITIONAL_COVERAGES_INDICATOR")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.AddlCvgCaseNum)
+                    .HasColumnName("ADDL_CVG_CASE_NUM")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.AddlCvgCoverage)
+                    .HasColumnName("ADDL_CVG_COVERAGE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCoverageLives)
+                    .HasColumnName("ADDL_CVG_COVERAGE_LIVES")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCoverageType)
+                    .HasColumnName("ADDL_CVG_COVERAGE_TYPE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgCurrNumUnits).HasColumnName("ADDL_CVG_CURR_NUM_UNITS");
+
+                entity.Property(e => e.AddlCvgCurrentAmt)
+                    .HasColumnName("ADDL_CVG_CURRENT_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AddlCvgDeathBeneAmt)
+                    .HasColumnName("ADDL_CVG_DEATH_BENE_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AddlCvgLastmodifiedDate).HasColumnName("ADDL_CVG_LASTMODIFIED_DATE");
+
+                entity.Property(e => e.AddlCvgPlanName)
+                    .HasColumnName("ADDL_CVG_PLAN_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AddlCvgSlId)
+                    .HasColumnName("ADDL_CVG_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.AddlCvgValuePerUnit)
+                    .HasColumnName("ADDL_CVG_VALUE_PER_UNIT")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Amount1035)
+                    .HasColumnName("AMOUNT_1035")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AnnualizedPremium)
+                    .HasColumnName("ANNUALIZED_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.AppReceiptDate).HasColumnName("APP_RECEIPT_DATE");
+
+                entity.Property(e => e.AppSignDate).HasColumnName("APP_SIGN_DATE");
+
+                entity.Property(e => e.ApplicationDate).HasColumnName("APPLICATION_DATE");
+
+                entity.Property(e => e.ApplicationId)
+                    .HasColumnName("APPLICATION_ID")
+                    .HasMaxLength(12);
+
+                entity.Property(e => e.ApplicationType)
+                    .HasColumnName("APPLICATION_TYPE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ApprovalDate).HasColumnName("APPROVAL_DATE");
+
+                entity.Property(e => e.BalanceOfPremiumDue)
+                    .HasColumnName("BALANCE_OF_PREMIUM_DUE")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.CarrierAcctName)
+                    .HasColumnName("CARRIER_ACCT_NAME")
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.CarrierCasemgrEmail)
+                    .HasColumnName("CARRIER_CASEMGR_EMAIL")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.CarrierCasemgrName)
+                    .HasColumnName("CARRIER_CASEMGR_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CarrierCasemgrPhone)
+                    .HasColumnName("CARRIER_CASEMGR_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CarrierInfo)
+                    .HasColumnName("CARRIER_INFO")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.CarrierUnderwriterEmail)
+                    .HasColumnName("CARRIER_UNDERWRITER_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CarrierUnderwriterName)
+                    .HasColumnName("CARRIER_UNDERWRITER_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CarrierUnderwriterPhone)
+                    .HasColumnName("CARRIER_UNDERWRITER_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CarrierUwContactid)
+                    .HasColumnName("CARRIER_UW_CONTACTID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CarrierUwRole)
+                    .HasColumnName("CARRIER_UW_ROLE")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.Carrierid)
+                    .HasColumnName("CARRIERID")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.CaseIdC)
+                    .HasColumnName("CASE_ID_C")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseMgrEmail)
+                    .HasColumnName("CASE_MGR_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CaseMgrName)
+                    .HasColumnName("CASE_MGR_NAME")
+                    .HasMaxLength(80);
+
+                entity.Property(e => e.CaseMgrPhone)
+                    .HasColumnName("CASE_MGR_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.CaseMgrRolename)
+                    .HasColumnName("CASE_MGR_ROLENAME")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseMgrSlId)
+                    .HasColumnName("CASE_MGR_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CaseStatus)
+                    .HasColumnName("CASE_STATUS")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CaseType)
+                    .HasColumnName("CASE_TYPE")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.CashWithApp)
+                    .HasColumnName("CASH_WITH_APP")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ClassName)
+                    .HasColumnName("CLASS_NAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.CmSlId)
+                    .HasColumnName("CM_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.CommPaidDate).HasColumnName("COMM_PAID_DATE");
+
+                entity.Property(e => e.CoverageType)
+                    .HasColumnName("COVERAGE_TYPE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.CoveredLives)
+                    .HasColumnName("COVERED_LIVES")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.DateEnteredC).HasColumnName("DATE_ENTERED_C");
+
+                entity.Property(e => e.DeathBenefitAmt)
+                    .HasColumnName("DEATH_BENEFIT_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.DeathBenefitType)
+                    .HasColumnName("DEATH_BENEFIT_TYPE")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.DistributionCompany)
+                    .HasColumnName("DISTRIBUTION_COMPANY")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.DistributionCompany2)
+                    .HasColumnName("DISTRIBUTION_COMPANY_2")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.ExcessPremium)
+                    .HasColumnName("EXCESS_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ExtractDt)
+                    .HasColumnName("EXTRACT_DT")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.FaAsstEmail)
+                    .HasColumnName("FA_ASST_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaAsstPhone)
+                    .HasColumnName("FA_ASST_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaAsstname)
+                    .HasColumnName("FA_ASSTNAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaBusinessCity)
+                    .HasColumnName("FA_BUSINESS_CITY")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessCountry)
+                    .HasColumnName("FA_BUSINESS_COUNTRY")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessState)
+                    .HasColumnName("FA_BUSINESS_STATE")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaBusinessStreet1)
+                    .HasColumnName("FA_BUSINESS_STREET_1")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessStreet2)
+                    .HasColumnName("FA_BUSINESS_STREET_2")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaBusinessZipCode)
+                    .HasColumnName("FA_BUSINESS_ZIP_CODE")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaEmail)
+                    .HasColumnName("FA_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaFirmRegion)
+                    .HasColumnName("FA_FIRM_REGION")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.FaLatitude)
+                    .HasColumnName("FA_LATITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaLongtitude)
+                    .HasColumnName("FA_LONGTITUDE")
+                    .HasColumnType("decimal(13, 10)");
+
+                entity.Property(e => e.FaName)
+                    .HasColumnName("FA_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.FaNpn)
+                    .HasColumnName("FA_NPN")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FaPhone)
+                    .HasColumnName("FA_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.FaPosition)
+                    .HasColumnName("FA_POSITION")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.FaSlContactId)
+                    .HasColumnName("FA_SL_CONTACT_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.FaceAmt)
+                    .HasColumnName("FACE_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.FinancialAdvisorInfo)
+                    .HasColumnName("FINANCIAL_ADVISOR_INFO")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.FlatEndDate).HasColumnName("FLAT_END_DATE");
+
+                entity.Property(e => e.FlatExtraAmount)
+                    .HasColumnName("FLAT_EXTRA_AMOUNT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.ImportantDates)
+                    .HasColumnName("IMPORTANT_DATES")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.InitialPremiumPayment)
+                    .HasColumnName("INITIAL_PREMIUM_PAYMENT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.IssueAge).HasColumnName("ISSUE_AGE");
+
+                entity.Property(e => e.IssueDate).HasColumnName("ISSUE_DATE");
+
+                entity.Property(e => e.IssueState)
+                    .HasColumnName("ISSUE_STATE")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.IwEmail)
+                    .HasColumnName("IW_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IwName)
+                    .HasColumnName("IW_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.IwPhone)
+                    .HasColumnName("IW_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.IwRoleName)
+                    .HasColumnName("IW_ROLE_NAME")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.IwSlId)
+                    .HasColumnName("IW_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.LastActivityDate).HasColumnName("LAST_ACTIVITY_DATE");
+
+                entity.Property(e => e.LastUwActivity)
+                    .HasColumnName("LAST_UW_ACTIVITY")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.LifePartClassName)
+                    .HasColumnName("LIFE_PART_CLASS_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartCoverageName)
+                    .HasColumnName("LIFE_PART_COVERAGE_NAME")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartIssueAge).HasColumnName("LIFE_PART_ISSUE_AGE");
+
+                entity.Property(e => e.LifePartIssueGender)
+                    .HasColumnName("LIFE_PART_ISSUE_GENDER")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.LifePartLastModifiedDate)
+                    .HasColumnName("LIFE_PART_LAST_MODIFIED_DATE")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.LifePartPermRating)
+                    .HasColumnName("LIFE_PART_PERM_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartPermTableRating)
+                    .HasColumnName("LIFE_PART_PERM_TABLE_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartRole)
+                    .HasColumnName("LIFE_PART_ROLE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartSlId)
+                    .HasColumnName("LIFE_PART_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.LifePartTempRating)
+                    .HasColumnName("LIFE_PART_TEMP_RATING")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartTobacco)
+                    .HasColumnName("LIFE_PART_TOBACCO")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartUwClass)
+                    .HasColumnName("LIFE_PART_UW_CLASS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifePartUwSubClass)
+                    .HasColumnName("LIFE_PART_UW_SUB_CLASS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LifeParticipant)
+                    .HasColumnName("LIFE_PARTICIPANT")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.ModalPremium)
+                    .HasColumnName("MODAL_PREMIUM")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.MoneyTransferType)
+                    .HasColumnName("MONEY_TRANSFER_TYPE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.PaymentMethod)
+                    .HasColumnName("PAYMENT_METHOD")
+                    .HasMaxLength(75);
+
+                entity.Property(e => e.PermanentTableRating)
+                    .HasColumnName("PERMANENT_TABLE_RATING")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.PlacementExpDate).HasColumnName("PLACEMENT_EXP_DATE");
+
+                entity.Property(e => e.PolicyDetailPolicyBaseCoverage)
+                    .HasColumnName("POLICY_DETAIL_POLICY_BASE_COVERAGE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PolicyEffDate).HasColumnName("POLICY_EFF_DATE");
+
+                entity.Property(e => e.PolicyNumber)
+                    .HasColumnName("POLICY_NUMBER")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PolicyPlacedDate).HasColumnName("POLICY_PLACED_DATE");
+
+                entity.Property(e => e.PremiumInfo)
+                    .HasColumnName("PREMIUM_INFO")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.PremiumMode)
+                    .HasColumnName("PREMIUM_MODE")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PrimInsCity)
+                    .HasColumnName("PRIM_INS_CITY")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PrimInsFirstname)
+                    .HasColumnName("PRIM_INS_FIRSTNAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsIssueAge).HasColumnName("PRIM_INS_ISSUE_AGE");
+
+                entity.Property(e => e.PrimInsLastname)
+                    .HasColumnName("PRIM_INS_LASTNAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsMiddlename)
+                    .HasColumnName("PRIM_INS_MIDDLENAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.PrimInsState)
+                    .HasColumnName("PRIM_INS_STATE")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.PrimInsSuffix)
+                    .HasColumnName("PRIM_INS_SUFFIX")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.PrimInsZip)
+                    .HasColumnName("PRIM_INS_ZIP")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.PrimaryInsured)
+                    .HasColumnName("PRIMARY_INSURED")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.ProductName)
+                    .HasColumnName("PRODUCT_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.ProductType)
+                    .HasColumnName("PRODUCT_TYPE")
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.RecordType)
+                    .HasColumnName("RECORD_TYPE")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.RsvpContractNumber)
+                    .HasColumnName("RSVP_CONTRACT_NUMBER")
+                    .HasMaxLength(6);
+
+                entity.Property(e => e.RsvpEmail)
+                    .HasColumnName("RSVP_EMAIL")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RsvpName)
+                    .HasColumnName("RSVP_NAME")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.RsvpPhone)
+                    .HasColumnName("RSVP_PHONE")
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.RsvpRoleName)
+                    .HasColumnName("RSVP_ROLE_NAME")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.RsvpSlId)
+                    .HasColumnName("RSVP_SL_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.RsvpStaffCode)
+                    .HasColumnName("RSVP_STAFF_CODE")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.RsvpTerritory)
+                    .HasColumnName("RSVP_TERRITORY")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.SlCarrierCmContactid)
+                    .HasColumnName("SL_CARRIER_CM_CONTACTID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.SlCaseId)
+                    .HasColumnName("SL_CASE_ID")
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("STATUS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.StatusDateC).HasColumnName("STATUS_DATE_C");
+
+                entity.Property(e => e.StatusReasonC)
+                    .HasColumnName("STATUS_REASON_C")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.SubStatus)
+                    .HasColumnName("SUB_STATUS")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TargetPremAmt)
+                    .HasColumnName("TARGET_PREM_AMT")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.TobaccoUsage)
+                    .HasColumnName("TOBACCO_USAGE")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.TotalCashWithApp)
+                    .HasColumnName("TOTAL_CASH_WITH_APP")
+                    .HasColumnType("numeric(16, 2)");
+
+                entity.Property(e => e.UwClass)
+                    .HasColumnName("UW_CLASS")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.WeightedPremiumMeasure)
+                    .HasColumnName("WEIGHTED_PREMIUM_MEASURE")
+                    .HasColumnType("numeric(16, 2)");
+            });
+
             modelBuilder.Entity<DmtCashRecon>(entity =>
             {
                 entity.HasKey(e => e.CashReconId);
@@ -2791,9 +4012,13 @@ namespace PLD.WebApi.Models
 
             modelBuilder.Entity<DmtCommErr>(entity =>
             {
-                entity.HasKey(e => e.CommId);
+                entity.HasKey(e => e.CommId)
+                    .HasName("PK_DMT_COMM_ERR_1");
 
                 entity.ToTable("DMT_COMM_ERR");
+
+                entity.HasIndex(e => new { e.CarrId, e.CommId, e.PolNum })
+                    .HasName("NonClusteredIndex-20200115-124436");
 
                 entity.Property(e => e.CommId).HasColumnName("COMM_ID");
 
@@ -3048,6 +4273,14 @@ namespace PLD.WebApi.Models
                     .HasColumnName("AGNT_CNTR_NUM")
                     .HasMaxLength(6);
 
+                entity.Property(e => e.AgntCrdNum)
+                    .HasColumnName("AGNT_CRD_NUM")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.AgntDistAssgnId)
+                    .HasColumnName("AGNT_DIST_ASSGN_ID")
+                    .HasMaxLength(10);
+
                 entity.Property(e => e.AgntNpn)
                     .HasColumnName("AGNT_NPN")
                     .HasMaxLength(10);
@@ -3107,8 +4340,8 @@ namespace PLD.WebApi.Models
 
                 entity.HasOne(d => d.Comm)
                     .WithMany(p => p.DmtCommErrAgnt)
-                    .HasForeignKey(d => d.CommId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey(d => d.CommId)                    
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_DMT_COMM_ERR_AGNT_DMT_COMM_ERR");
             });
 
@@ -3181,8 +4414,8 @@ namespace PLD.WebApi.Models
 
                 entity.HasOne(d => d.Comm)
                     .WithMany(p => p.DmtCommErrClnt)
-                    .HasForeignKey(d => d.CommId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey(d => d.CommId)                    
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_DMT_COMM_ERR_CLNT_DMT_COMM_ERR");
             });
 
@@ -3744,6 +4977,40 @@ namespace PLD.WebApi.Models
                     .HasConstraintName("FK_DMT_FEED_FILE_DMT_PRTNR_FEED_FILE");
             });
 
+            modelBuilder.Entity<DmtFeedSchedLog>(entity =>
+            {
+                entity.HasKey(e => new { e.FeedId, e.CalEntryId });
+
+                entity.ToTable("DMT_FEED_SCHED_LOG");
+
+                entity.Property(e => e.FeedId).HasColumnName("FEED_ID");
+
+                entity.Property(e => e.CalEntryId).HasColumnName("CAL_ENTRY_ID");
+
+                entity.Property(e => e.CrtBy)
+                    .IsRequired()
+                    .HasColumnName("CRT_BY")
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('SYSTEM')");
+
+                entity.Property(e => e.CrtDt)
+                    .HasColumnName("CRT_DT")
+                    .HasColumnType("datetime2(0)")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.CalEntry)
+                    .WithMany(p => p.DmtFeedSchedLog)
+                    .HasForeignKey(d => d.CalEntryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMT_FEED_SCHED_LOG_DMT_CAL_ENTRY");
+
+                entity.HasOne(d => d.Feed)
+                    .WithMany(p => p.DmtFeedSchedLog)
+                    .HasForeignKey(d => d.FeedId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMT_FEED_SCHED_LOG_DMT_FEED");
+            });
+
             modelBuilder.Entity<DmtGa>(entity =>
             {
                 entity.HasKey(e => e.GaId);
@@ -3792,8 +5059,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.MsgCd)
                     .HasColumnName("MSG_CD")
-                    .HasMaxLength(25)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(25);
 
                 entity.Property(e => e.AccptInd).HasColumnName("ACCPT_IND");
 
@@ -3838,8 +5104,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.MsgTypCd)
                     .HasColumnName("MSG_TYP_CD")
-                    .HasMaxLength(10)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -3978,8 +5243,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.PremModeCd)
                     .HasColumnName("PREM_MODE_CD")
-                    .HasMaxLength(5)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -4043,14 +5307,14 @@ namespace PLD.WebApi.Models
                 entity.Property(e => e.ProdRtInd)
                     .IsRequired()
                     .HasColumnName("PROD_RT_IND")
-                    .HasDefaultValueSql("((1))");
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength()
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ProdTypId).HasColumnName("PROD_TYP_ID");
 
-                entity.Property(e => e.ProdTypRtInd)
-                    .IsRequired()
-                    .HasColumnName("PROD_TYP_RT_IND")
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.ProdTypRtInd).HasColumnName("PROD_TYP_RT_IND");
 
                 entity.HasOne(d => d.Carr)
                     .WithMany(p => p.DmtProd)
@@ -4067,7 +5331,8 @@ namespace PLD.WebApi.Models
 
             modelBuilder.Entity<DmtProdAltName>(entity =>
             {
-                entity.HasKey(e => e.ProdAltNameId);
+                entity.HasKey(e => e.ProdAltNameId)
+                    .HasName("PK_PROD_ALT_NAME");
 
                 entity.ToTable("DMT_PROD_ALT_NAME");
 
@@ -4518,41 +5783,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.SsnTinTypCd)
                     .HasColumnName("SSN_TIN_TYP_CD")
-                    .HasMaxLength(3)
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.CrtBy)
-                    .IsRequired()
-                    .HasColumnName("CRT_BY")
-                    .HasMaxLength(100)
-                    .HasDefaultValueSql("('SYSTEM')");
-
-                entity.Property(e => e.CrtDt)
-                    .HasColumnName("CRT_DT")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.DescTxt)
-                    .IsRequired()
-                    .HasColumnName("DESC_TXT")
-                    .HasMaxLength(25);
-
-                entity.Property(e => e.ModBy)
-                    .HasColumnName("MOD_BY")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.ModDt).HasColumnName("MOD_DT");
-            });
-
-            modelBuilder.Entity<DmtStatCd>(entity =>
-            {
-                entity.HasKey(e => e.StatCd);
-
-                entity.ToTable("DMT_STAT_CD");
-
-                entity.Property(e => e.StatCd)
-                    .HasColumnName("STAT_CD")
-                    .HasMaxLength(1)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(3);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -4584,8 +5815,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.StCd)
                     .HasColumnName("ST_CD")
-                    .HasMaxLength(3)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(3);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -4609,6 +5839,109 @@ namespace PLD.WebApi.Models
                     .HasMaxLength(100);
             });
 
+            modelBuilder.Entity<DmtStatCd>(entity =>
+            {
+                entity.HasKey(e => e.StatCd);
+
+                entity.ToTable("DMT_STAT_CD");
+
+                entity.Property(e => e.StatCd)
+                    .HasColumnName("STAT_CD")
+                    .HasMaxLength(1);
+
+                entity.Property(e => e.CrtBy)
+                    .IsRequired()
+                    .HasColumnName("CRT_BY")
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('SYSTEM')");
+
+                entity.Property(e => e.CrtDt)
+                    .HasColumnName("CRT_DT")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DescTxt)
+                    .IsRequired()
+                    .HasColumnName("DESC_TXT")
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.ModBy)
+                    .HasColumnName("MOD_BY")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ModDt).HasColumnName("MOD_DT");
+            });
+
+            modelBuilder.Entity<DmtTmActMap>(entity =>
+            {
+                entity.HasKey(e => new { e.CarrId, e.SrcTmCd, e.SrcActCd });
+
+                entity.ToTable("DMT_TM_ACT_MAP");
+
+                entity.Property(e => e.CarrId).HasColumnName("CARR_ID");
+
+                entity.Property(e => e.SrcTmCd)
+                    .HasColumnName("SRC_TM_CD")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.SrcActCd)
+                    .HasColumnName("SRC_ACT_CD")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.ActCd)
+                    .IsRequired()
+                    .HasColumnName("ACT_CD")
+                    .HasMaxLength(4);
+
+                entity.Property(e => e.CompInd)
+                    .IsRequired()
+                    .HasColumnName("COMP_IND")
+                    .HasMaxLength(2)
+                    .HasDefaultValueSql("('N')");
+
+                entity.Property(e => e.CrtBy)
+                    .IsRequired()
+                    .HasColumnName("CRT_BY")
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('SYSTEM')");
+
+                entity.Property(e => e.CrtDt)
+                    .HasColumnName("CRT_DT")
+                    .HasColumnType("datetime2(0)")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.ModBy)
+                    .HasColumnName("MOD_BY")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ModDt)
+                    .HasColumnName("MOD_DT")
+                    .HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.SrcTransKey)
+                    .HasColumnName("SRC_TRANS_KEY")
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TmCd)
+                    .HasColumnName("TM_CD")
+                    .HasMaxLength(4);
+
+                entity.Property(e => e.YrEndNum).HasColumnName("YR_END_NUM");
+
+                entity.Property(e => e.YrStartNum).HasColumnName("YR_START_NUM");
+
+                entity.HasOne(d => d.ActCdNavigation)
+                    .WithMany(p => p.DmtTmActMap)
+                    .HasForeignKey(d => d.ActCd)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMT_TM_ACT_MAP_DMT_ACT_CD");
+
+                entity.HasOne(d => d.TmCdNavigation)
+                    .WithMany(p => p.DmtTmActMap)
+                    .HasForeignKey(d => d.TmCd)
+                    .HasConstraintName("FK_DMT_TM_ACT_MAP_DMT_TM_CD");
+            });
+
             modelBuilder.Entity<DmtTmCd>(entity =>
             {
                 entity.HasKey(e => e.TmCd);
@@ -4617,8 +5950,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.TmCd)
                     .HasColumnName("TM_CD")
-                    .HasMaxLength(4)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(4);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -4690,8 +6022,7 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.WpCalcCd)
                     .HasColumnName("WP_CALC_CD")
-                    .HasMaxLength(10)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.CrtBy)
                     .IsRequired()
@@ -4779,6 +6110,10 @@ namespace PLD.WebApi.Models
 
                 entity.Property(e => e.YrInfrcNum).HasColumnName("YR_INFRC_NUM");
             });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

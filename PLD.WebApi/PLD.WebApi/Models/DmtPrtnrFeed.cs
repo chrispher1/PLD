@@ -24,8 +24,8 @@ namespace PLD.WebApi.Models
         public string SrcAdptr { get; set; }
         public string TrgtAdptr { get; set; }
 
-        public DmtPrtnr Prtnr { get; set; }
-        public ICollection<DmtFeed> DmtFeed { get; set; }
-        public ICollection<DmtPrtnrFeedFile> DmtPrtnrFeedFile { get; set; }
+        public virtual DmtPrtnr Prtnr { get; set; }
+        public virtual ICollection<DmtFeed> DmtFeed { get; set; }
+        public virtual ICollection<DmtPrtnrFeedFile> DmtPrtnrFeedFile { get; set; }
     }
 }

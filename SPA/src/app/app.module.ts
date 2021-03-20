@@ -1,9 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// NgModule decorator is needed when creating Module
 import { NgModule } from '@angular/core';
+// RouterModule is needed when configuring router Module
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule, 
-   ModalModule } from 'ngx-bootstrap';
+
+// Modules of ngx-bootstrap
+import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+// FormsModule is required to import when using Angular forms
+// RecativeFormsModule is required to be import when using Reactive forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { routes } from './routes.routing';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -48,8 +62,12 @@ import { DecimalPipe } from '@angular/common';
 import { BarcodePipe } from './_pipe/barcode.pipe';
 import { ExcelService } from './_service/excel.service';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { ProductComponent } from './product/product.component';
+import { RateComponent } from './rate/rate.component';
+import { TransactionTypeComponent} from './transactiontype/transactiontype.component';
+import { CommissionNewComponent } from './commission/commission-new/commission-new.component';
 
-export function tokenGetter() {
+export function tokenGetter() {   
    return localStorage.getItem('token');
  }
 
@@ -74,7 +92,11 @@ export function tokenGetter() {
       CurrencyDirective,
       CurrencyPipe,      
       BarcodePipe,
-      PagenotfoundComponent
+      PagenotfoundComponent,
+      ProductComponent,
+      RateComponent,
+      TransactionTypeComponent,
+      CommissionNewComponent
    ],
    entryComponents: [ CommissionDetailComponent],
    imports: [
@@ -91,11 +113,13 @@ export function tokenGetter() {
       JwtModule.forRoot({
          config: {
            tokenGetter: tokenGetter,
-           whitelistedDomains: ['localhost:5000'],
-           blacklistedRoutes: ['localhost:5000/api/auth']
+           allowedDomains: ['localhost:5000'],
+           disallowedRoutes: ['localhost:5000/api/auth']
          }
        }),
-       ModalModule.forRoot()
+       ModalModule.forRoot(),
+       BrowserAnimationsModule,
+       BsDatepickerModule.forRoot()
    ],
    providers: [
       CommissionService,

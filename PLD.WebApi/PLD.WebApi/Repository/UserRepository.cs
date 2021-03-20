@@ -16,7 +16,7 @@ namespace PLD.WebApi.Repository
         }
         public async Task<User> LogIn(string userName, string password)
         {
-            var user = await _context.Users.Where(u => u.Username == userName ).FirstOrDefaultAsync();
+            var user = await _context.User.Where(u => u.Username == userName ).FirstOrDefaultAsync();
             
             if (user == null)
             return null;
@@ -26,7 +26,8 @@ namespace PLD.WebApi.Repository
 
             return user;
         }
-        public async Task<User> Register(string userName, string password)
+        public async Task<User> Register(string userName, string password,
+            DateTime? birthDate, string firstName, string lastName)
         {   
             byte[] passwordHash;
             byte[] passwordSalt;
@@ -36,14 +37,17 @@ namespace PLD.WebApi.Repository
             user.Username = userName;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.BirthDate = birthDate;
+            user.FirstName = firstName;
+            user.LastName = lastName;
 
-            await _context.Users.AddAsync(user);
+            await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
         }
         public async Task<bool> UserExists(string userName)
         {
-            if(await _context.Users.AnyAsync(u => u.Username == userName))
+            if(await _context.User.AnyAsync(u => u.Username == userName))
                 return true;
 
             return false;

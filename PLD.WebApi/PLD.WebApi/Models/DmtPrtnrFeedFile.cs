@@ -24,7 +24,7 @@ namespace PLD.WebApi.Models
         public string ModBy { get; set; }
         public string TstInd { get; set; }
 
-        public DmtPrtnrFeed PrtnrFeed { get; set; }
-        public ICollection<DmtFeedFile> DmtFeedFile { get; set; }
+        public virtual DmtPrtnrFeed PrtnrFeed { get; set; }
+        public virtual ICollection<DmtFeedFile> DmtFeedFile { get; set; }
     }
 }

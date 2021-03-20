@@ -97,14 +97,15 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtCase Case { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public DmtProd Prod { get; set; }
-        public DmtProdTyp ProdTyp { get; set; }
-        public ICollection<DmtCaseAddCovHist> DmtCaseAddCovHist { get; set; }
-        public ICollection<DmtCaseLifeParticHist> DmtCaseLifeParticHist { get; set; }
-        public ICollection<DmtCaseRsvpHist> DmtCaseRsvpHist { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtCase Case { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual DmtProd Prod { get; set; }
+        public virtual DmtProdTyp ProdTyp { get; set; }
+        public virtual DmtCaseAgntHist DmtCaseAgntHist { get; set; }
+        public virtual ICollection<DmtCaseAddCovHist> DmtCaseAddCovHist { get; set; }
+        public virtual ICollection<DmtCaseLifeParticHist> DmtCaseLifeParticHist { get; set; }
+        public virtual ICollection<DmtCaseRsvpHist> DmtCaseRsvpHist { get; set; }
     }
 }

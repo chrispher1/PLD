@@ -82,7 +82,10 @@ export class CommissionService {
     return this.http.delete( this.baseUrl + 'commissionError/deleterecord/' + commissionError.commId);
   }
   deleteMultiError( commissionErrorList: CommissionError[] ) {    
-    return this.http.request('delete', this.baseUrl + 'commissionError/deletemultirecord', { body: commissionErrorList } );    
+    let data = {
+      "commissionErrorList": commissionErrorList
+    }    
+    return this.http.post( this.baseUrl + 'commissionError/deletemultirecord' , data);
   }
 }
  

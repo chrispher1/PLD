@@ -20,8 +20,8 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtMsgTypCd MsgTypCdNavigation { get; set; }
-        public ICollection<DmtCaseMsg> DmtCaseMsg { get; set; }
-        public ICollection<DmtCommMsg> DmtCommMsg { get; set; }
+        public virtual DmtMsgTypCd MsgTypCdNavigation { get; set; }
+        public virtual ICollection<DmtCaseMsg> DmtCaseMsg { get; set; }
+        public virtual ICollection<DmtCommMsg> DmtCommMsg { get; set; }
     }
 }

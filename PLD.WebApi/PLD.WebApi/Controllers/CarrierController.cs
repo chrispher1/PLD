@@ -22,11 +22,9 @@ namespace PLD.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var list = await _repository.GetRecords();
-            var listToReturn = _mapper.Map<IEnumerable<CarrierDTO>>(list);
-
+            var listToReturn = await _repository.GetRecords();            
             return Ok(listToReturn);
         }
     }

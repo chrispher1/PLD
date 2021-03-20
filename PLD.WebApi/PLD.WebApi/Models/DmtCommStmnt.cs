@@ -23,9 +23,9 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtById { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public ICollection<DmtCashReconStmnt> DmtCashReconStmnt { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual ICollection<DmtCashReconStmnt> DmtCashReconStmnt { get; set; }
     }
 }

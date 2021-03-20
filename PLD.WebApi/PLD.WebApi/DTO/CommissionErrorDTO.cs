@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace PLD.WebApi.DTO
 {
+    public class CommissionErrorDTORootObject
+    {
+        public List<CommissionErrorDTO> CommissionErrorList { get; set; }
+    }
     public class CommissionErrorDTO
     {
         public int CommId { get; set; }        

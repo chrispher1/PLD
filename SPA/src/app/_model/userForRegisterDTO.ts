@@ -1,4 +1,7 @@
 export interface UserForRegisterDTO {
-    username: string;
-    password: string;
+    Username: string;
+    Password: string;
+    FirstName: string;
+    LastName: string;
+    BirthDate?: Date;
 }

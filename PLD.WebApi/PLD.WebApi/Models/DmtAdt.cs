@@ -24,7 +24,7 @@ namespace PLD.WebApi.Models
         public string Pk6Id { get; set; }
         public string Pk7Id { get; set; }
 
-        public DmtAdtTypCd AdtTypCdNavigation { get; set; }
-        public ICollection<DmtAdtDtl> DmtAdtDtl { get; set; }
+        public virtual DmtAdtTypCd AdtTypCdNavigation { get; set; }
+        public virtual ICollection<DmtAdtDtl> DmtAdtDtl { get; set; }
     }
 }

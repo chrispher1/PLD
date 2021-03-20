@@ -8,6 +8,7 @@ namespace PLD.WebApi.Models
         public DmtFeed()
         {
             DmtFeedFile = new HashSet<DmtFeedFile>();
+            DmtFeedSchedLog = new HashSet<DmtFeedSchedLog>();
         }
 
         public int FeedId { get; set; }
@@ -15,7 +16,8 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtBy { get; set; }
 
-        public DmtPrtnrFeed PrtnrFeed { get; set; }
-        public ICollection<DmtFeedFile> DmtFeedFile { get; set; }
+        public virtual DmtPrtnrFeed PrtnrFeed { get; set; }
+        public virtual ICollection<DmtFeedFile> DmtFeedFile { get; set; }
+        public virtual ICollection<DmtFeedSchedLog> DmtFeedSchedLog { get; set; }
     }
 }

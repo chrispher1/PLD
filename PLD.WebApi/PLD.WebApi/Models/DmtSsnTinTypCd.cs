@@ -20,9 +20,9 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public ICollection<DmtCommAgnt> DmtCommAgnt { get; set; }
-        public ICollection<DmtCommClnt> DmtCommClnt { get; set; }
-        public ICollection<DmtCommErrAgnt> DmtCommErrAgnt { get; set; }
-        public ICollection<DmtCommErrClnt> DmtCommErrClnt { get; set; }
+        public virtual ICollection<DmtCommAgnt> DmtCommAgnt { get; set; }
+        public virtual ICollection<DmtCommClnt> DmtCommClnt { get; set; }
+        public virtual ICollection<DmtCommErrAgnt> DmtCommErrAgnt { get; set; }
+        public virtual ICollection<DmtCommErrClnt> DmtCommErrClnt { get; set; }
     }
 }

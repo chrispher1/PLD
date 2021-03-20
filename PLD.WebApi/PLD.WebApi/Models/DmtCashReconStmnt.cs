@@ -10,7 +10,7 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtById { get; set; }
 
-        public DmtCashRecon CashRecon { get; set; }
-        public DmtCommStmnt CommStmnt { get; set; }
+        public virtual DmtCashRecon CashRecon { get; set; }
+        public virtual DmtCommStmnt CommStmnt { get; set; }
     }
 }

@@ -22,21 +22,21 @@ namespace PLD.WebApi.Models
         public string ProdCd { get; set; }
         public string Name { get; set; }
         public string Carrierid { get; set; }
-        public bool? ProdRtInd { get; set; }
-        public bool? ProdTypRtInd { get; set; }
+        public string ProdRtInd { get; set; }
+        public bool ProdTypRtInd { get; set; }
         public DateTime CrtDt { get; set; }
         public string CrtBy { get; set; }
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtProdTyp ProdTyp { get; set; }
-        public ICollection<DmtCase> DmtCase { get; set; }
-        public ICollection<DmtCaseHist> DmtCaseHist { get; set; }
-        public ICollection<DmtComm> DmtComm { get; set; }
-        public ICollection<DmtCommErr> DmtCommErr { get; set; }
-        public ICollection<DmtProdAltName> DmtProdAltName { get; set; }
-        public ICollection<DmtProdFbga> DmtProdFbga { get; set; }
-        public ICollection<DmtProdRt> DmtProdRt { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtProdTyp ProdTyp { get; set; }
+        public virtual ICollection<DmtCase> DmtCase { get; set; }
+        public virtual ICollection<DmtCaseHist> DmtCaseHist { get; set; }
+        public virtual ICollection<DmtComm> DmtComm { get; set; }
+        public virtual ICollection<DmtCommErr> DmtCommErr { get; set; }
+        public virtual ICollection<DmtProdAltName> DmtProdAltName { get; set; }
+        public virtual ICollection<DmtProdFbga> DmtProdFbga { get; set; }
+        public virtual ICollection<DmtProdRt> DmtProdRt { get; set; }
     }
 }

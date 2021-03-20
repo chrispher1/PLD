@@ -30,6 +30,6 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtCase Case { get; set; }
+        public virtual DmtCase Case { get; set; }
     }
 }

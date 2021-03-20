@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,20 +34,20 @@ namespace PLD.WebApi.Angular
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors();
-             services.AddCors(options =>
-      {
-          options.AddPolicy("CorsPolicy",
-              builder => builder.WithOrigins("http://localhost:4200")
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials() );
-      });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();            
+            services.AddCors(options =>
+                                {
+                                    options.AddPolicy("CorsPolicy",
+                                        builder => builder.WithOrigins("http://localhost:4200")
+                                        .AllowAnyMethod()
+                                        .AllowAnyHeader()
+                                        .AllowCredentials() );
+                                });            
             services.AddAutoMapper();            
-            var connection = @"Server=MSI;Database=DMTPLD;Trusted_Connection=True;ConnectRetryCount=0;MultipleActiveResultSets=true;";
+            var connection = Configuration.GetSection("DMTPLDConnectionString").Value;
             services.AddDbContext<DMTPLDContext>(options => options.UseSqlServer(connection));
-            services.AddScoped<ICommissionRepository<DmtCommErr>, CommissionRepository>();
+            services.AddScoped<ICommissionRepository<DmtCommErr>, CommissionErrorRepository>();
+            services.AddScoped<ICommissionRepository<DmtComm>, CommissionFinalRepository>();
             services.AddScoped<CarrierRepository, CarrierRepository>();
             services.AddScoped<ProductRepository, ProductRepository>();
             services.AddScoped<ActivityRepository, ActivityRepository>();
@@ -68,7 +67,7 @@ namespace PLD.WebApi.Angular
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // if (env.IsDevelopment())
             // {
@@ -88,11 +87,15 @@ namespace PLD.WebApi.Angular
                     });
                 });
             
-            app.UseCors("CorsPolicy");
-            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());            
-            
+            app.UseRouting();
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseAuthorization();            
+            app.UseCors("CorsPolicy");
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseEndpoints( endPoint => {
+                endPoint.MapControllers();
+            });
         }
     }
 }

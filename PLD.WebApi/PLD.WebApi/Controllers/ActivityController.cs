@@ -15,7 +15,6 @@ namespace PLD.WebApi.Controllers
     {
         private readonly ActivityRepository _repository;
         private readonly IMapper _mapper;
-
         public ActivityController(ActivityRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -23,11 +22,9 @@ namespace PLD.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var list = await _repository.GetRecords();
-            var listToReturn = _mapper.Map<IEnumerable<ActivityDTO>>(list);
-
+            var listToReturn = await _repository.GetRecords();
             return Ok(listToReturn);
         }
     }

@@ -19,10 +19,14 @@ namespace PLD.WebApi.Controllers
     public class CommissionErrorController : ControllerBase
     {
         private readonly ICommissionRepository<DmtCommErr> _repository;
+        private readonly ICommissionRepository<DmtComm> _finalRepository;
         private readonly IMapper _mapper;
-        public CommissionErrorController(ICommissionRepository<DmtCommErr> repository, IMapper mapper)
+        public CommissionErrorController(ICommissionRepository<DmtCommErr> repository, 
+            ICommissionRepository<DmtComm> finalRepository,
+            IMapper mapper)
         {
             _repository = repository;
+            _finalRepository = finalRepository;
             _mapper = mapper;
         }
 
@@ -38,16 +42,15 @@ namespace PLD.WebApi.Controllers
         }
 
         [HttpGet("getrecord/{id}")]
-        public async Task<ActionResult<CommissionErrorDTO>> GetByID(int id)
+        public async Task<IActionResult> GetByID(int id)
         {   
             var record = await _repository.GetRecordByID(id);
             var recordToReturn = _mapper.Map<CommissionErrorDTO>(record);
             return Ok(recordToReturn);
         }
-
         
         [HttpPost("addrecord")]
-        public async Task<ActionResult<CommissionErrorDTO>> AddRecord(CommissionErrorDTO commissionError)
+        public async Task<IActionResult> AddRecord(CommissionErrorDTO commissionError)
         {
             var destinationRecord = new DmtCommErr();
             _mapper.Map(commissionError, destinationRecord);
@@ -58,26 +61,37 @@ namespace PLD.WebApi.Controllers
 
         // PUT api/values/update
         [HttpPut("updaterecord")]
-        public async Task<ActionResult> SaveRecord(CommissionErrorDTO commissionError)
+        public async Task<IActionResult> SaveRecord(CommissionErrorDTO commissionError)
         {            
             var destinationRecord = await _repository.GetRecordByID(commissionError.CommId);
             _mapper.Map(commissionError, destinationRecord);
+
+            // Check status if processed
+            // if processed then save to final table and delete in error table
+            // else update the error table
+
+            
+
             await _repository.Update(destinationRecord);    
+
+            var finalRecord = _mapper.Map<DmtComm>(destinationRecord);
+            await _finalRepository.Create(finalRecord);
+
             return Ok();
         }
 
         // DELETE api/values/5
         [HttpDelete("deleterecord/{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _repository.Delete(id);
             return Ok();
-        }
+        }        
         
-        [HttpDelete("deletemultirecord")]
-        public async Task<ActionResult> MultiDelete(List<CommissionErrorDTO> commissionErrorList)
-        {            
-            var destinationRecordList = _mapper.Map<List<CommissionErrorDTO>,List<DmtCommErr>>(commissionErrorList);
+        [HttpPost("deletemultirecord")]
+        public async Task<IActionResult> MultiDelete(CommissionErrorDTORootObject rootObject)
+        {   
+            var destinationRecordList = _mapper.Map<List<CommissionErrorDTO>,List<DmtCommErr>>(rootObject.CommissionErrorList);
             await _repository.MultiDelete(destinationRecordList);            
             return Ok();
         }

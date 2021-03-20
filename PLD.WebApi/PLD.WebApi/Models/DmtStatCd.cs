@@ -18,7 +18,7 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public ICollection<DmtComm> DmtComm { get; set; }
-        public ICollection<DmtCommErr> DmtCommErr { get; set; }
+        public virtual ICollection<DmtComm> DmtComm { get; set; }
+        public virtual ICollection<DmtCommErr> DmtCommErr { get; set; }
     }
 }

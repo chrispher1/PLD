@@ -72,15 +72,15 @@ namespace PLD.WebApi.Models
         public DateTime? LstReconDt { get; set; }
         public decimal? AdjAmt { get; set; }
 
-        public DmtActCd ActCdNavigation { get; set; }
-        public DmtCarr Carr { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public DmtPremModeCd PremModeCdNavigation { get; set; }
-        public DmtProd Prod { get; set; }
-        public DmtStatCd StatCdNavigation { get; set; }
-        public DmtTmCd TmCdNavigation { get; set; }
-        public ICollection<DmtCommErrAgnt> DmtCommErrAgnt { get; set; }
-        public ICollection<DmtCommErrClnt> DmtCommErrClnt { get; set; }
+        public virtual DmtActCd ActCdNavigation { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual DmtPremModeCd PremModeCdNavigation { get; set; }
+        public virtual DmtProd Prod { get; set; }
+        public virtual DmtStatCd StatCdNavigation { get; set; }
+        public virtual DmtTmCd TmCdNavigation { get; set; }
+        public virtual ICollection<DmtCommErrAgnt> DmtCommErrAgnt { get; set; }
+        public virtual ICollection<DmtCommErrClnt> DmtCommErrClnt { get; set; }
     }
 }

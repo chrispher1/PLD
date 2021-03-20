@@ -8,10 +8,10 @@ using PLD.WebApi.Helper;
 
 namespace PLD.WebApi.Repository
 {
-    public class CommissionRepository: ICommissionRepository<DmtCommErr>
+    public class CommissionErrorRepository: ICommissionRepository<DmtCommErr>
     {
         private readonly DMTPLDContext _context;
-        public CommissionRepository(DMTPLDContext context)
+        public CommissionErrorRepository(DMTPLDContext context)
         {
             _context = context;
         }
@@ -113,15 +113,25 @@ namespace PLD.WebApi.Repository
         }
 
         public async Task Delete(int id)
-        {
-           var record = await _context.DmtCommErr.Where(r => r.CommId == id ).FirstOrDefaultAsync();
+        {           
+           var record = await _context.DmtCommErr
+                        .Include(c => c.DmtCommErrAgnt)
+                        .Include(c => c.DmtCommErrClnt)
+                        .Where(r => r.CommId == id )
+                        .FirstOrDefaultAsync();
             _context.DmtCommErr.Remove(record);
+
             await _context.SaveChangesAsync();
         }
 
         public async Task MultiDelete(List<DmtCommErr> commErrList)
         {
-            _context.DmtCommErr.RemoveRange(commErrList);
+           List<DmtCommErr> objDmtCommErrList = _context.DmtCommErr
+                        .Include(c => c.DmtCommErrAgnt)
+                        .Include(c => c.DmtCommErrClnt)
+                        .Where( r => commErrList.Contains(r)).ToList();
+
+            _context.DmtCommErr.RemoveRange(objDmtCommErrList);
             await _context.SaveChangesAsync();
         }
 

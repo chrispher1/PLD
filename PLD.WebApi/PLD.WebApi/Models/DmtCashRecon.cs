@@ -27,11 +27,11 @@ namespace PLD.WebApi.Models
         public DateTime? AttstBalDt { get; set; }
         public string AttstBalById { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public ICollection<DmtCashReconCmnt> DmtCashReconCmnt { get; set; }
-        public ICollection<DmtCashReconPay> DmtCashReconPay { get; set; }
-        public ICollection<DmtCashReconStmnt> DmtCashReconStmnt { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual ICollection<DmtCashReconCmnt> DmtCashReconCmnt { get; set; }
+        public virtual ICollection<DmtCashReconPay> DmtCashReconPay { get; set; }
+        public virtual ICollection<DmtCashReconStmnt> DmtCashReconStmnt { get; set; }
     }
 }

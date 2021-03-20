@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PLD\\PLD.WebApi\\PLD.WebApi\\PLD.WebApi.csproj": {}
+    "D:\\PLD\\pld.webapi\\pld.webapi\\PLD.WebApi.csproj": {}
   },
   "projects": {
-    "D:\\PLD\\PLD.WebApi\\PLD.WebApi\\PLD.WebApi.csproj": {
+    "D:\\PLD\\pld.webapi\\pld.webapi\\PLD.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PLD\\PLD.WebApi\\PLD.WebApi\\PLD.WebApi.csproj",
+        "projectUniqueName": "D:\\PLD\\pld.webapi\\pld.webapi\\PLD.WebApi.csproj",
         "projectName": "PLD.WebApi",
-        "projectPath": "D:\\PLD\\PLD.WebApi\\PLD.WebApi\\PLD.WebApi.csproj",
+        "projectPath": "D:\\PLD\\pld.webapi\\pld.webapi\\PLD.WebApi.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "D:\\PLD\\PLD.WebApi\\PLD.WebApi\\obj\\",
+        "outputPath": "D:\\PLD\\pld.webapi\\pld.webapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -23,14 +23,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "netcoreapp3.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
+          "netcoreapp3.0": {
             "projectReferences": {}
           }
         },
@@ -41,7 +42,7 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.1": {
+        "netcoreapp3.0": {
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
@@ -51,21 +52,27 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
-            "Microsoft.AspNetCore.App": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.1.1, )",
-              "autoReferenced": true
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[2.1.4, )"
+              "version": "[3.0.0, )"
             },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
+            "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
+              "version": "[5.6.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
             }
           },
           "imports": [
@@ -78,7 +85,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

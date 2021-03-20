@@ -12,10 +12,16 @@ namespace PLD.WebApi.Helper
     {
         public AutoMapperProfile()
         {
-            CreateMap<DmtCommErr, CommissionErrorDTO>().ReverseMap();            
+            CreateMap<DmtCommErr, CommissionErrorDTO>().ReverseMap();  
+                   
+            CreateMap<DmtComm, DmtCommErr>().ReverseMap();       
+
             CreateMap<DmtCarr, CarrierDTO>().ReverseMap();
+
             CreateMap<DmtProd, ProductDTO>().ReverseMap();
+
             CreateMap<DmtActCd, ActivityDTO>().ReverseMap();
+
             CreateMap<DmtStatCd, StatusDTO>().ReverseMap();
         }
     }

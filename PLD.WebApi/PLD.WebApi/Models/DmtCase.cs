@@ -9,6 +9,7 @@ namespace PLD.WebApi.Models
         {
             DmtCaseAddCov = new HashSet<DmtCaseAddCov>();
             DmtCaseAgnt = new HashSet<DmtCaseAgnt>();
+            DmtCaseAgntHist = new HashSet<DmtCaseAgntHist>();
             DmtCaseCmnt = new HashSet<DmtCaseCmnt>();
             DmtCaseHist = new HashSet<DmtCaseHist>();
             DmtCaseLifePartic = new HashSet<DmtCaseLifePartic>();
@@ -100,17 +101,18 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtCarr Carr { get; set; }
-        public DmtFb Fb { get; set; }
-        public DmtGa Ga { get; set; }
-        public DmtProd Prod { get; set; }
-        public DmtProdTyp ProdTyp { get; set; }
-        public ICollection<DmtCaseAddCov> DmtCaseAddCov { get; set; }
-        public ICollection<DmtCaseAgnt> DmtCaseAgnt { get; set; }
-        public ICollection<DmtCaseCmnt> DmtCaseCmnt { get; set; }
-        public ICollection<DmtCaseHist> DmtCaseHist { get; set; }
-        public ICollection<DmtCaseLifePartic> DmtCaseLifePartic { get; set; }
-        public ICollection<DmtCaseRsvp> DmtCaseRsvp { get; set; }
-        public ICollection<DmtCaseWpRsvp> DmtCaseWpRsvp { get; set; }
+        public virtual DmtCarr Carr { get; set; }
+        public virtual DmtFb Fb { get; set; }
+        public virtual DmtGa Ga { get; set; }
+        public virtual DmtProd Prod { get; set; }
+        public virtual DmtProdTyp ProdTyp { get; set; }
+        public virtual ICollection<DmtCaseAddCov> DmtCaseAddCov { get; set; }
+        public virtual ICollection<DmtCaseAgnt> DmtCaseAgnt { get; set; }
+        public virtual ICollection<DmtCaseAgntHist> DmtCaseAgntHist { get; set; }
+        public virtual ICollection<DmtCaseCmnt> DmtCaseCmnt { get; set; }
+        public virtual ICollection<DmtCaseHist> DmtCaseHist { get; set; }
+        public virtual ICollection<DmtCaseLifePartic> DmtCaseLifePartic { get; set; }
+        public virtual ICollection<DmtCaseRsvp> DmtCaseRsvp { get; set; }
+        public virtual ICollection<DmtCaseWpRsvp> DmtCaseWpRsvp { get; set; }
     }
 }

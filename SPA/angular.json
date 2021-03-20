@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "ee64459e-1390-49d4-bc17-c1e5463c92d0"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -13,6 +16,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "xlsx",
+              "file-saver"
+            ],
             "outputPath": "dist/SPA",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,8 +46,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
+              "sourceMap": false,              
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,

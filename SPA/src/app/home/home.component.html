@@ -5,5 +5,8 @@
   <div *ngIf="!currentlyLogged() && toggleRegister ">
       <app-register (registerMode) ="registerMode($event)" ></app-register>
   </div>
+  <div *ngIf="currentlyLogged()" style="text-align: center;">
+    Hello {{userName}}. Have a nice day !!!
+</div>
 
 

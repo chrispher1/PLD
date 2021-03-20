@@ -10,11 +10,11 @@ import { Product } from '../_model/product';
 import { Activity } from '../_model/activity';
 import { Status } from '../_model/status';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { TestingModalComponent } from '../TestingModal/TestingModal.component';
 import { CommissionDetailComponent } from './commissiondetail/commissiondetail.component';
 import { ExcelService } from '../_service/excel.service';
 import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 enum mode {Add = 1, Edit = 2}
 
@@ -31,8 +31,9 @@ export class CommissionComponent implements OnInit {
   statusErrorList: Status[];
   paginationcommissionError: Pagination;
   commissionErrorSearchParam: any = {};
+  @ViewChild('errorForm') errorForm: NgForm;
 
-  bsModalRef: BsModalRef;
+  //bsModalRef: BsModalRef;
   commissionErrorRecord: CommissionError;
   modalDeleteCommissionErrorRef: BsModalRef;
   commissionErrorRecordForDelete: CommissionError;
@@ -56,7 +57,12 @@ export class CommissionComponent implements OnInit {
         this.statusErrorList = data['status'];     
       }
     );
+    
+    this.commissionErrorSearchParamSetDefaultValue();
+    
+  } 
 
+  commissionErrorSearchParamSetDefaultValue() {
     this.commissionErrorSearchParam.carrier = -1 ;
     this.commissionErrorSearchParam.product = -1 ;
     this.commissionErrorSearchParam.policyNumber = '';
@@ -74,26 +80,31 @@ export class CommissionComponent implements OnInit {
     this.commissionErrorSearchParam.status = -1;
     this.commissionErrorSearchParam.transactionDateMin = '';
     this.commissionErrorSearchParam.transactionDateMax = '';
-  } 
+  }
 
-  commissionErrorResetFilter() {    
-    this.commissionErrorSearchParam.carrier = -1 ;
-    this.commissionErrorSearchParam.product = -1 ;
-    this.commissionErrorSearchParam.policyNumber = '';
-    this.commissionErrorSearchParam.policyYearMin = '';
-    this.commissionErrorSearchParam.policyYearMax = '';
-    this.commissionErrorSearchParam.activity = -1;
-    this.commissionErrorSearchParam.grossPremiumAmountMin = '';
-    this.commissionErrorSearchParam.grossPremiumAmountMax = '';
-    this.commissionErrorSearchParam.commissionPremiumAmountMin = '';
-    this.commissionErrorSearchParam.commissionPremiumAmountMax = '';
-    this.commissionErrorSearchParam.commissionRateMin = '';
-    this.commissionErrorSearchParam.commissionRateMax = '';
-    this.commissionErrorSearchParam.commissionAmountMin = '';
-    this.commissionErrorSearchParam.commissionAmountMax = '';
-    this.commissionErrorSearchParam.status = -1;
-    this.commissionErrorSearchParam.transactionDateMin = '';
-    this.commissionErrorSearchParam.transactionDateMax = '';  
+  commissionErrorResetFilter() {           
+    this.errorForm.form.patchValue({
+        SearchParam: { 
+          carrier: -1,
+          product: -1 ,
+          policyNumber: '',
+          policyYearMin: '',
+          policyYearMax: '',
+          activity: -1,
+          grossPremiumAmountMin: '',
+          grossPremiumAmountMax: '',
+          commissionPremiumAmountMin: '',
+          commissionPremiumAmountMax: '',
+          commissionRateMin: '',
+          commissionRateMax: '',
+          commissionAmountMin: '',
+          commissionAmountMax: '',
+          status: -1,
+          transactionDateMin: '',
+          transactionDateMax: '' 
+        } 
+      }
+    )
   }
   
   exportAsXLSX(): void {    
@@ -105,8 +116,9 @@ export class CommissionComponent implements OnInit {
     this.loadCommissionError();     
   }
 
-  loadCommissionError()  {
-    this.commissionservice.getAllError(this.paginationcommissionError.currentPage, 5, this.commissionErrorSearchParam).subscribe(list => {
+  loadCommissionError()  {    
+    this.commissionservice.getAllError(this.paginationcommissionError.currentPage, 5, 
+      this.errorForm.value.SearchParam).subscribe(list => {
       this.commissionErrorList = list.result;
       this.paginationcommissionError = list.pagination;  
       this.AllCommissionErrorCheckbox.nativeElement['checked'] = false;     
@@ -114,13 +126,20 @@ export class CommissionComponent implements OnInit {
       , error => {
         this.alertify.error('Cannot load commission errors record');
       }      
-    );  
+    );
+    
   }
+
+  loadCommissionFinal()  {
+  }
+
 
   openModalWithComponent(event: Event, button: String, commissionError: CommissionError, transactionMode: Number) {
     //event.preventDefault();
     //event.stopPropagation();    
     //transactionMode = 3;
+
+    /*
 
     let commissionRecord = {} as Commission;
 
@@ -197,6 +216,7 @@ export class CommissionComponent implements OnInit {
       }
       );
     }
+    */
   }
 
   openCommissionErrorDeleteModal(template: TemplateRef<any>, commissionError: CommissionError) {

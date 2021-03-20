@@ -21,8 +21,10 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModById { get; set; }
         public string SrcTinTypCd { get; set; }
+        public string AgntCrdNum { get; set; }
+        public string AgntDistAssgnId { get; set; }
 
-        public DmtSsnTinTypCd AgntSsnTinTypCdNavigation { get; set; }
-        public DmtCommErr Comm { get; set; }
+        public virtual DmtSsnTinTypCd AgntSsnTinTypCdNavigation { get; set; }
+        public virtual DmtCommErr Comm { get; set; }
     }
 }

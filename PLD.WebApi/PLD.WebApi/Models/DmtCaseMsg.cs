@@ -17,7 +17,7 @@ namespace PLD.WebApi.Models
         public DateTime? ModDt { get; set; }
         public string ModBy { get; set; }
 
-        public DmtMsgCd MsgCdNavigation { get; set; }
-        public DmtMsgTypCd MsgTypCdNavigation { get; set; }
+        public virtual DmtMsgCd MsgCdNavigation { get; set; }
+        public virtual DmtMsgTypCd MsgTypCdNavigation { get; set; }
     }
 }

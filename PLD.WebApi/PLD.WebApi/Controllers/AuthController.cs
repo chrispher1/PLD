@@ -34,19 +34,26 @@ namespace PLD.WebApi.Controllers
             if (await _userRepository.UserExists(userDTO.Username.ToLower()))
             return BadRequest("UserName already exists.");
 
-            var user = await _userRepository.Register(userDTO.Username.ToLower(), userDTO.Password);
-            return Ok(user);
+            var user = await _userRepository.Register(userDTO.Username.ToLower(), userDTO.Password,
+                userDTO.BirthDate, userDTO.FirstName, userDTO.LastName);
+            //return Ok(user);
+            return Ok(new { token = GenerateToken(user), user
+            });
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDTO userDTO)
+        [HttpGet("login")]
+        public async Task<IActionResult> Login([FromQuery] UserForLoginDTO userDTO)
         {
             var user = await _userRepository.LogIn(userDTO.Username.ToLower(),userDTO.Password);
 
             if( user == null)
-            return Unauthorized();
+            return Unauthorized(); 
+            return Ok(new { token = GenerateToken(user), user
+            });
+        }
 
+        private string GenerateToken(User user) {
             var claims = new[]
             {
                 new Claim( ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -66,9 +73,7 @@ namespace PLD.WebApi.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new { token = tokenHandler.WriteToken(token), user
-            });
-
+            return tokenHandler.WriteToken(token);            
         }
 
     }

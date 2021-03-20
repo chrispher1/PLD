@@ -2,6 +2,8 @@ using PLD.WebApi.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using PLD.WebApi.DTO;
 
 namespace PLD.WebApi.Repository
 {
@@ -12,9 +14,16 @@ namespace PLD.WebApi.Repository
         {
             _context = context;
         }
-        public async Task<List<DmtCarr>> GetRecords()
+        public async Task<List<CarrierDTO>> GetRecords()
         {
-            var list = await _context.DmtCarr.ToListAsync();
+            var list = await _context.DmtCarr.Select( o => new CarrierDTO
+            {
+               CarrCd = o.CarrCd,
+               CarrId = o.CarrId,
+               Name = o.Name
+            }
+            )
+            .ToListAsync();            
             return list;
         }
 

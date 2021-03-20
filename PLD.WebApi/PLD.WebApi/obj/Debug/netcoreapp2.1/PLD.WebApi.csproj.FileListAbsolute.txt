@@ -15,3 +15,4 @@ D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.RazorTargetAssem
 D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.dll
 D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.pdb
 D:\PLD\PLD.WebApi\PLD.WebApi\obj\Debug\netcoreapp2.1\PLD.WebApi.csprojAssemblyReference.cache
+D:\PLD\PLD.WebApi\PLD.WebApi\bin\Debug\netcoreapp2.1\global.json

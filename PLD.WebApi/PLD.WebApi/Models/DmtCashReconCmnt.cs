@@ -11,6 +11,6 @@ namespace PLD.WebApi.Models
         public DateTime CrtDt { get; set; }
         public string CrtBy { get; set; }
 
-        public DmtCashRecon CashRecon { get; set; }
+        public virtual DmtCashRecon CashRecon { get; set; }
     }
 }

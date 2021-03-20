@@ -11,6 +11,6 @@ namespace PLD.WebApi.Models
         public string OldVal { get; set; }
         public string NewVal { get; set; }
 
-        public DmtAdt Adt { get; set; }
+        public virtual DmtAdt Adt { get; set; }
     }
 }

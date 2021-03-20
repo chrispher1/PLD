@@ -1,6 +1,6 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {
+  "compilerOptions": {    
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -16,5 +16,10 @@
       "es2017",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": true,
+    "enableIvy": true
   }
 }
