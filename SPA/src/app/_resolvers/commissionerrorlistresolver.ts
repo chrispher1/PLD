@@ -10,7 +10,7 @@ import { of, Observable } from "rxjs";
 @Injectable()
 export class CommissionErrorListResolver implements Resolve<PaginatedResult<CommissionError[]>> {
     pageNumber = 1;
-    pageSize = 5;
+    pageSize = 10;
 
     constructor( private commissionService: CommissionService , private router: Router) {
     }

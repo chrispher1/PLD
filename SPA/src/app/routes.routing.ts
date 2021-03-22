@@ -16,6 +16,7 @@ import { StatusListResolver } from './_resolvers/statuslistresolver';
 import { ProductComponent } from './product/product.component';
 import { RateComponent } from './rate/rate.component';
 import { TransactionTypeComponent } from './transactiontype/transactiontype.component';
+import { CommissionNewComponent } from './commission/commission-new/commission-new.component';
 
 export const routes: Routes = [
 
@@ -25,7 +26,13 @@ export const routes: Routes = [
             resolve: { commissionError: CommissionErrorListResolver, carrier: CarrierListResolver, 
                       product: ProductListResolver, activity: ActivityListResolver,
                       status: StatusListResolver} ,
-                      children: [                        
+                      children: [ { 
+                          path: 'new', component: CommissionNewComponent, resolve:{
+                            carrier: CarrierListResolver, 
+                            product: ProductListResolver, activity: ActivityListResolver,
+                            status: StatusListResolver
+                            }                              
+                          },                       
                           { path: 'commissiondetail', component: CommissionDetailComponent , 
                           resolve: {commissionError: CommissionDetailResolver, carrier: CarrierListResolver}
                           }

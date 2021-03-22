@@ -69,7 +69,7 @@ export class CommissionDetailComponent implements OnInit, OnDestroy {
           this.commissionService.addError(commission)
           .subscribe(
             data => {
-              commission = data;
+              //commission = data;
               this.commissionRecord.commId = commission.commId;
               this.transactionMode = mode.Edit;
               this.alertify.success('Record successfully saved');

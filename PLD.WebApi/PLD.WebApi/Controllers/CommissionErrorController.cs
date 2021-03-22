@@ -55,7 +55,7 @@ namespace PLD.WebApi.Controllers
             var destinationRecord = new DmtCommErr();
             _mapper.Map(commissionError, destinationRecord);
             var record = _mapper.Map<CommissionErrorDTO> (await _repository.Create(destinationRecord));
-            return Ok(record);
+            return Ok();
         }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CommissionService } from '../_service/commission.service';
 import { CommissionError } from '../_model/commissionError';
 import { Commission} from '../_model/commission';
@@ -12,7 +12,7 @@ import { Status } from '../_model/status';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CommissionDetailComponent } from './commissiondetail/commissiondetail.component';
 import { ExcelService } from '../_service/excel.service';
-import { of, Observable } from 'rxjs';
+import { of, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 
@@ -23,7 +23,13 @@ enum mode {Add = 1, Edit = 2}
   templateUrl: './commission.component.html',
   styleUrls: ['./commission.component.css']
 })
-export class CommissionComponent implements OnInit {  
+export class CommissionComponent implements OnInit, OnDestroy {  
+
+  constructor(private commissionservice: CommissionService, 
+    private alertify: AlertifyService, private route: ActivatedRoute,
+    private modalService: BsModalService,
+    private excelService: ExcelService ) {
+    }
   commissionErrorList: CommissionError[];
   carrierErrorList: Carrier[];
   productErrorList: Product[];  
@@ -32,19 +38,14 @@ export class CommissionComponent implements OnInit {
   paginationcommissionError: Pagination;
   commissionErrorSearchParam: any = {};
   @ViewChild('errorForm') errorForm: NgForm;
+  errorListSubscription: Subscription;
 
-  //bsModalRef: BsModalRef;
+  
   commissionErrorRecord: CommissionError;
   modalDeleteCommissionErrorRef: BsModalRef;
   commissionErrorRecordForDelete: CommissionError;
   multiDelete: boolean;
   @ViewChild('AllCommissionErrorCheckbox') AllCommissionErrorCheckbox: ElementRef;
-
-  constructor(private commissionservice: CommissionService, 
-    private alertify: AlertifyService, private route: ActivatedRoute,
-    private modalService: BsModalService,
-    private excelService: ExcelService ) {
-    }
 
   ngOnInit() {    
     this.route.data.subscribe(data =>
@@ -60,7 +61,18 @@ export class CommissionComponent implements OnInit {
     
     this.commissionErrorSearchParamSetDefaultValue();
     
+    this.errorListSubscription = this.commissionservice.errorSubject.subscribe(
+      updateflag =>{
+        this.loadCommissionError();
+        console.log('Reloads Commission Error records');
+      }
+    );
   } 
+  
+  ngOnDestroy(){
+    this.errorListSubscription.unsubscribe();
+    console.log('errorListSubscription.unsubscribe');
+  }
 
   commissionErrorSearchParamSetDefaultValue() {
     this.commissionErrorSearchParam.carrier = -1 ;
@@ -117,7 +129,7 @@ export class CommissionComponent implements OnInit {
   }
 
   loadCommissionError()  {    
-    this.commissionservice.getAllError(this.paginationcommissionError.currentPage, 5, 
+    this.commissionservice.getAllError(this.paginationcommissionError.currentPage, 10, 
       this.errorForm.value.SearchParam).subscribe(list => {
       this.commissionErrorList = list.result;
       this.paginationcommissionError = list.pagination;  

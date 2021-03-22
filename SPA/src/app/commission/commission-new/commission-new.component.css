@@ -1,0 +1,24 @@
+#backgrounddiv{
+    background-color: black;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    height: 200%;
+    width: 100%;
+    padding: 40vh;    
+    z-index: 100;
+    opacity: 0.8;
+    margin:0px;
+}
+
+#mainform{
+    background-color: white;
+    top: 150px;
+    left: 150px;
+    /*height: 50vh;*/
+    width: 80vw;
+    position:absolute;
+    z-index: 150;    
+}

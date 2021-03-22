@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CommissionError } from '../_model/commissionError';
 import { environment } from '../../environments/environment';
 import { PaginatedResult } from '../_model/pagination';
@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-
 export class CommissionService {
   baseUrl = environment.apiUrl;
+  errorSubject: Subject<boolean> = new Subject<boolean>();
+
   constructor(private http: HttpClient) {
   }
 
@@ -75,8 +76,8 @@ export class CommissionService {
   updateError( commissionError: CommissionError) {        
     return this.http.put(this.baseUrl + 'commissionerror/updaterecord', commissionError );    
   }
-  addError( commissionError: CommissionError): Observable<CommissionError> {
-    return this.http.post<CommissionError>(this.baseUrl + 'commissionError/addrecord', commissionError);
+  addError( commissionError: CommissionError) {
+    return this.http.post(this.baseUrl + 'commissionError/addrecord', commissionError);
   }
   deleteError( commissionError: CommissionError){
     return this.http.delete( this.baseUrl + 'commissionError/deleterecord/' + commissionError.commId);
