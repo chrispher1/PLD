@@ -1,5 +1,4 @@
-<div id="backgrounddiv" (click)="close()">
-    <p>test</p>
+<div id="backgrounddiv" (click)="close()">    
 </div>
 <div id="mainform">
     <div class="modal-header">
@@ -79,7 +78,7 @@
                 <div class="col-lg-3 text-right">Status</div>
                 <div class="col-lg-3">
                       <select name="statCd" 
-                      [ngModel]="null"
+                      [ngModel]="'N'"
                       appStatusValidator
                       #statCd="ngModel">
                         <option  [ngValue]="null">Select a status</option> 
@@ -116,6 +115,9 @@
                   appCurrency                          
                   numericType="decimal"
                   #commRt="ngModel"
+                  appRateValidator
+                  MinimumRate=1
+                  MaximumRate=100  
                   ></div>
                 <div class="col-lg-3  text-right">Commission Amount</div>
                 <div class="col-lg-3"><input type="text"
@@ -159,6 +161,9 @@
             </div>
             <div *ngIf="commRt.invalid && commRt?.errors.required">
               Please enter commission rate
+            </div>
+            <div *ngIf="commRt.invalid && commRt?.errors.appRateValidator === true">
+              Please enter commission rate within 1 to 100 value
             </div>
             <div *ngIf="commAmt.invalid && commAmt?.errors.required">
               Please enter commission amount

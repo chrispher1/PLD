@@ -6,7 +6,7 @@ import { CurrencyPipe } from '../_pipe/currency.pipe';
 })
 export class CurrencyDirective implements OnInit {
   private el: any;  
-  @Input('numericType') numericType: string; // number | decimal  
+  @Input('numericType') numericType: string = ''; 
   private regex = {
     number: new RegExp(/^\d+$/),
     decimal: new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g)

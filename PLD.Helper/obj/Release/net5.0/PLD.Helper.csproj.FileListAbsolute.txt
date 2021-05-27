@@ -1,0 +1,12 @@
+D:\PLD\PLD.Helper\bin\Release\net5.0\PLD.Helper.deps.json
+D:\PLD\PLD.Helper\bin\Release\net5.0\PLD.Helper.dll
+D:\PLD\PLD.Helper\bin\Release\net5.0\ref\PLD.Helper.dll
+D:\PLD\PLD.Helper\bin\Release\net5.0\PLD.Helper.pdb
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.csprojAssemblyReference.cache
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.AssemblyInfoInputs.cache
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.AssemblyInfo.cs
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.csproj.CoreCompileInputs.cache
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.dll
+D:\PLD\PLD.Helper\obj\Release\net5.0\ref\PLD.Helper.dll
+D:\PLD\PLD.Helper\obj\Release\net5.0\PLD.Helper.pdb

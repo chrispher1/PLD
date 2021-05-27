@@ -1,0 +1,15 @@
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\PLD.DataAccess.deps.json
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\PLD.DataAccess.dll
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\ref\PLD.DataAccess.dll
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\PLD.DataAccess.pdb
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.csprojAssemblyReference.cache
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.AssemblyInfoInputs.cache
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.AssemblyInfo.cs
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.csproj.CoreCompileInputs.cache
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.dll
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\ref\PLD.DataAccess.dll
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.pdb
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\PLD.Models.dll
+D:\PLD\PLD.DataAccess\bin\Debug\net5.0\PLD.Models.pdb
+D:\PLD\PLD.DataAccess\obj\Debug\net5.0\PLD.DataAccess.csproj.CopyComplete

@@ -17,21 +17,37 @@ import { ProductComponent } from './product/product.component';
 import { RateComponent } from './rate/rate.component';
 import { TransactionTypeComponent } from './transactiontype/transactiontype.component';
 import { CommissionNewComponent } from './commission/commission-new/commission-new.component';
+import { CommissionEditComponent } from './commission/commissionedit/commissionedit.component';
+import { CommissionFinalListResolver } from './_resolvers/commissionfinallist.resolver';
+import { StatusListForCommissionFormResolver } from './_resolvers/statuslistforcommissionform.resolver';
+import { CommissionAllListResolver } from './_resolvers/commissionalllist.resolver';
 
 export const routes: Routes = [
 
     { path: '', redirectTo:'/home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
     { path: 'commission' , component: CommissionComponent,
-            resolve: { commissionError: CommissionErrorListResolver, carrier: CarrierListResolver, 
-                      product: ProductListResolver, activity: ActivityListResolver,
-                      status: StatusListResolver} ,
+            resolve: {  commissionError: CommissionErrorListResolver, 
+                        carrier: CarrierListResolver, 
+                        product: ProductListResolver, 
+                        activity: ActivityListResolver,
+                        status: StatusListResolver,
+                        commissionFinal: CommissionFinalListResolver,
+                        commissionAll: CommissionAllListResolver  
+                      } ,
                       children: [ { 
                           path: 'new', component: CommissionNewComponent, resolve:{
                             carrier: CarrierListResolver, 
                             product: ProductListResolver, activity: ActivityListResolver,
-                            status: StatusListResolver
+                            status: StatusListForCommissionFormResolver
                             }                              
+                          },
+                          {
+                            path: 'edit/:commissionid/:commissionmode', component: CommissionEditComponent, resolve: {
+                              carrier: CarrierListResolver, 
+                              product: ProductListResolver, activity: ActivityListResolver
+                            }
+
                           },                       
                           { path: 'commissiondetail', component: CommissionDetailComponent , 
                           resolve: {commissionError: CommissionDetailResolver, carrier: CarrierListResolver}

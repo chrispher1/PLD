@@ -68,7 +68,7 @@ export class CommissionNewComponent implements OnInit, OnDestroy {
     this.commissionService.addError(this.commissionError).subscribe(
       success => {           
         this.alertify.success('New record saved');
-        this.commissionService.errorSubject.next(true);        
+        this.commissionService.commissionSubject.next(true);        
         this.close();
       },
       error => {

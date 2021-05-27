@@ -20,7 +20,7 @@
               "xlsx",
               "file-saver"
             ],
-            "outputPath": "dist/SPA",
+            "outputPath": "../PLD.WebApi/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

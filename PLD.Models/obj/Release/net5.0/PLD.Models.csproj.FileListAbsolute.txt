@@ -1,0 +1,12 @@
+D:\PLD\PLD.Models\bin\Release\net5.0\PLD.Models.deps.json
+D:\PLD\PLD.Models\bin\Release\net5.0\PLD.Models.dll
+D:\PLD\PLD.Models\bin\Release\net5.0\ref\PLD.Models.dll
+D:\PLD\PLD.Models\bin\Release\net5.0\PLD.Models.pdb
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.csprojAssemblyReference.cache
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.AssemblyInfoInputs.cache
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.AssemblyInfo.cs
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.csproj.CoreCompileInputs.cache
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.dll
+D:\PLD\PLD.Models\obj\Release\net5.0\ref\PLD.Models.dll
+D:\PLD\PLD.Models\obj\Release\net5.0\PLD.Models.pdb

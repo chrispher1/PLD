@@ -3,12 +3,252 @@
   <div class="tab-panel">
     <tabset>
       <tab heading="All Transaction">
-        <h4>under construction</h4>
-      </tab>
-      <tab heading="Error">
         <br/>
-        <form #errorForm="ngForm" (ngSubmit)="loadCommissionError()" novalidate>
-          <div ngModelGroup="SearchParam">
+        <form [formGroup]="allForm" (ngSubmit)="loadCommissionAll()">
+          <div formGroupName="searchParam">
+            <div *ngIf="!allForm.valid">
+              <div class="row" *ngIf="!allForm.get('searchParam.commissionRateMin').valid && 
+              allForm.get('searchParam.commissionRateMin').touched 
+                && allForm.get('searchParam.commissionRateMin').errors['IsOutOfRange']">
+                <div class="col-sm-3 text-right"></div>
+                  <div class="col-sm-9">Please enter commission rate min within 1 to 100 value</div>  
+              </div>
+              <div class="row" *ngIf="!allForm.get('searchParam.commissionRateMax').valid &&
+                allForm.get('searchParam.commissionRateMax').touched && 
+                allForm.get('searchParam.commissionRateMax').errors['IsOutOfRange']">
+                <div class="col-sm-3 text-right"></div>
+                  <div class="col-sm-9">Please enter commission rate max within 1 to 100 value</div>  
+              </div>
+            </div>
+            <br/>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Carrier</div>
+              <div class="col-sm-9">
+                <select formControlName="carrier">
+                  <option [ngValue]="-1">Select a carrier</option>
+                  <option *ngFor="let carrier of carrierAllList" [ngValue]="carrier.carrId"> {{carrier.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Product</div>
+              <div class="col-sm-9">
+                <select formControlName="product">
+                  <option [ngValue]="-1">Select a product</option>
+                  <option *ngFor="let product of productAllList" [ngValue]="product.prodId">{{product.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Policy Number</div>
+              <div class="col-sm-9">
+                <input type="text" formControlName="policyNumber"
+                (keyup.enter) = "loadCommissionAll()"
+                >
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Policy Year</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="policyYearMin" appNumeric numericType="number"
+                (keyup.enter) = "loadCommissionAll()">
+                &nbsp;
+                <input type="number" formControlName="policyYearMax" appNumeric numericType="number"
+                (keyup.enter) = "loadCommissionAll()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Activity</div>
+              <div class="col-sm-9">
+                <select formControlName="activity">
+                  <option [ngValue]="-1">Select an activity</option>
+                  <option *ngFor="let activity of activityAllList" [ngValue]="activity.actCd">{{activity.descTxt}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Gross Premium Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="grossPremiumAmountMin"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionAll()"
+                >
+                &nbsp;
+                <input type="number" formControlName="grossPremiumAmountMax"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionAll()"
+                  >
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Premium Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionPremiumAmountMin"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionAll()">
+                &nbsp;
+                <input type="number" formControlName="commissionPremiumAmountMax"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionAll()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Rate</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionRateMin"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionAll()">
+                &nbsp;
+                <input type="number" formControlName="commissionRateMax"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionAll()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionAmountMin"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionAll()">
+                &nbsp;
+                <input type="number" formControlName="commissionAmountMax"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionAll()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Status</div>
+              <div class="col-sm-9">
+                <select formControlName="status">
+                  <option [ngValue]="-1">Select a status</option>
+                  <option *ngFor="let status of statusAllList" [ngValue]="status.statCd">{{status.descTxt}}</option>                
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Transaction Date</div>
+              <div class="col-sm-9">
+                <input type="date" formControlName="transactionDateMin">
+                &nbsp;
+                <input type="date" formControlName="transactionDateMax">
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-3 text-right"></div>
+              <div class="col-sm-9">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>&nbsp;
+                <button type="button" class="btn btn-info" (click)="commissionAllResetFilter()"><i class="fa fa-undo"></i> Reset</button>
+              </div>
+            </div>
+          </div>          
+        </form>
+        <div class="row mt-3">
+          <div class="col-lg-12 col-md-3 col-sm-6">
+            <button type="button" class="btn btn-info" (click)="exportAsXLSX()"><i class="fa fa-table"></i>
+              Export</button>
+          </div>
+          <div class="col-lg-12 col-md-3 col-sm-6">
+            <table>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Carrier</th>
+                <th>Product</th>
+                <th>Policy Number</th>
+                <th>Policy Year</th>
+                <th>Activity</th>
+                <th>Gross Premium Amount</th>
+                <th>Commission Premium Amount</th>
+                <th>Commission Rate</th>
+                <th>Commission Amount</th>
+                <th>Status Code</th>
+                <th>Modified Date</th>
+                <th>Modified By</th>
+              </tr>
+              <tr *ngFor="let commissionAll of commissionAllList">
+                <td>
+                  <button *ngIf="commissionAll.statCd !== 'P'" type="button" class="btn"
+                    [routerLink]="['edit',commissionAll.commId,'error']"                                     
+                    routerLinkActive="router-link-active" title="Edit"><i class="fa fa-edit"></i></button>
+                  <button  *ngIf="commissionAll.statCd === 'P'" type="button" class="btn"
+                    [routerLink]="['edit',commissionAll.commId,'final']"                                     
+                    routerLinkActive="router-link-active" title="Edit"><i class="fa fa-edit"></i></button>
+                </td>
+                <td>
+                  <button *ngIf="commissionAll.statCd === 'P'" type="button" class="btn"
+                    (click)="openCommissionFinalRevalidateModal(templateCommissionFinalRevalidate, commissionAll)"
+                    title="Revalidate"><i class="fa fa-server"></i></button>
+                  <button *ngIf="commissionAll.statCd !== 'P'" type="button" class="btn"
+                    (click)="openCommissionErrorDeleteModal(templateCommissionErrorDelete, commissionAll)"
+                    title="Delete"><i class="fa fa-trash"></i></button>  
+                </td>
+                <td>
+                  {{commissionAll.carr.name}}
+                </td>
+                <td>
+                  {{commissionAll.prod.name}}
+                </td>
+                <td>
+                  {{commissionAll.polNum}}
+                </td>
+                <td>
+                  {{commissionAll.yrNum}}
+                </td>
+                <td>
+                  {{commissionAll.actCdNavigation.descTxt}}
+                </td>
+                <td>
+                  {{commissionAll.grsPremAmt | number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionAll.commPremAmt| number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionAll.commRt}}
+                </td>
+                <td>
+                  {{commissionAll.commAmt | number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionAll.statCdNavigation.descTxt}}
+                </td>
+                <td>
+                  {{commissionAll.modDt | date :'MM/dd/yyyy h:mm:ss a '}}
+                </td>
+                <td>
+                  {{commissionAll.modById}}
+                </td>
+              </tr>
+            </table>
+          </div>          
+            <div class="col-lg-12 col-md-3 col-sm-6">
+            <pagination [boundaryLinks]="true" [totalItems]="paginationcommissionAll.totalItems"
+              [itemsPerPage]="paginationcommissionAll.itemsPerPage"
+              [(ngModel)]="paginationcommissionAll.currentPage" (pageChanged)="pageAllChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>            
+          </div>
+        </div>
+      </tab>
+      <tab heading="Error">        
+        <br/>
+        <form #errorForm="ngForm" (ngSubmit)="loadCommissionError()" >
+          <div ngModelGroup="searchParam">
+            <div *ngIf="!errorForm.valid">
+              <div class="row"
+                  *ngIf="commissionRateMin.invalid && commissionRateMin?.errors.appRateValidator === true">
+                  <div class="col-sm-3 text-right"></div>
+                  <div class="col-sm-9">Please enter commission rate min within 1 to 100 value</div>  
+              </div>
+              <div class="row"
+                *ngIf="commissionRateMax.invalid && commissionRateMax?.errors.appRateValidator === true">                
+                <div class="col-sm-3 text-right"></div>
+                <div class="col-sm-9">
+                  Please enter commission rate max within 1 to 100 value
+                </div>
+              </div>
+            </div>
+            <br/>
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Carrier</div>
             <div class="col-sm-9">
@@ -30,17 +270,17 @@
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Policy Number</div>
             <div class="col-sm-9">
-              <input type="text" name="policyNumber" (keyup.enter)="keyUpEnterKey()" ngModel>
+              <input type="text" name="policyNumber" (keyup.enter)="loadCommissionError()" ngModel>
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Policy Year</div>
             <div class="col-sm-9">
               <input type="number" name="policyYearMin" appNumeric numericType="number"
-                (keyup.enter)="keyUpEnterKey()" ngModel>
+                (keyup.enter)="loadCommissionError()" ngModel>
               &nbsp;
               <input type="number" name="policyYearMax" appNumeric numericType="number"
-                (keyup.enter)="keyUpEnterKey()" ngModel>
+                (keyup.enter)="loadCommissionError()" ngModel>
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
@@ -58,40 +298,54 @@
             <div class="col-sm-3 text-right">Gross Premium Amount</div>
             <div class="col-sm-9">
               <input type="number" name="grossPremiumAmountMin" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
               &nbsp;
               <input type="number" name="grossPremiumAmountMax" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Commission Premium Amount</div>
             <div class="col-sm-9">
               <input type="number" name="commissionPremiumAmountMin" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
               &nbsp;
               <input type="number" name="commissionPremiumAmountMax" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Commission Rate</div>
             <div class="col-sm-9">
-              <input type="number" name="commissionRateMin" appNumeric numericType="decimal"
-                (keyup.enter)="keyUpEnterKey()" ngModel>
+              <input type="number" name="commissionRateMin" 
+                  appNumeric 
+                  numericType="decimal"
+                  appRateValidator
+                  MinimumRate=1
+                  MaximumRate=100  
+                  (keyup.enter)="loadCommissionError()" 
+                  ngModel
+                  #commissionRateMin="ngModel">
               &nbsp;
-              <input type="number" name="commissionRateMax" appNumeric numericType="decimal"
-                (keyup.enter)="keyUpEnterKey()" ngModel>
+              <input type="number" name="commissionRateMax" 
+                  appNumeric 
+                  numericType="decimal"
+                  appRateValidator
+                  MinimumRate=1
+                  MaximumRate=100
+                  (keyup.enter)="loadCommissionError()" 
+                  ngModel
+                  #commissionRateMax="ngModel">
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-3 text-right">Commission Amount</div>
             <div class="col-sm-9">
               <input type="number" name="commissionAmountMin" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
               &nbsp;
               <input type="number" name="commissionAmountMax" appNumeric
-                numericType="decimal" (keyup.enter)="keyUpEnterKey()" ngModel>
+                numericType="decimal" (keyup.enter)="loadCommissionError()" ngModel>
             </div>
           </div>
           <div class="row" style="padding-bottom: 10px;">
@@ -114,7 +368,7 @@
           <div class="row mt-2">
             <div class="col-sm-3 text-right"></div>
             <div class="col-sm-9">
-              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>&nbsp;
+              <button type="submit" class="btn btn-primary"  [disabled]="!errorForm.valid"><i class="fa fa-search"></i> Search</button>&nbsp;
               <button type="button" class="btn btn-info" (click)="commissionErrorResetFilter()"><i
                   class="fa fa-undo"></i> Reset</button>
             </div>
@@ -158,8 +412,9 @@
               </tr>
               <tr *ngFor="let commissionError of commissionErrorList">
                 <td>
-                  <button type="button" class="btn" (click)="openModalWithComponent($event, 'Edit', commissionError, 2)"
-                    title="Edit"><i class="fa fa-edit"></i></button>
+                  <button type="button" class="btn"
+                    [routerLink]="['edit',commissionError.commId,'error']"                                     
+                    routerLinkActive="router-link-active" title="Edit"><i class="fa fa-edit"></i></button>
                 </td>
                 <td>
                   <button type="button" class="btn"
@@ -214,110 +469,249 @@
           <div class="col-lg-12 col-md-3 col-sm-6">
             <pagination [boundaryLinks]="true" [totalItems]="paginationcommissionError.totalItems"
               [itemsPerPage]="paginationcommissionError.itemsPerPage"
-              [(ngModel)]="paginationcommissionError.currentPage" (pageChanged)="pageChanged($event)"
+              [(ngModel)]="paginationcommissionError.currentPage" (pageChanged)="pageErrorChanged($event)"
               previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-            </pagination>
+            </pagination>            
           </div>
         </div>
       </tab>
       <tab heading="Final">
-        <div class="row">&nbsp;</div>
-        <form #form="ngForm" (ngSubmit)="loadCommissionFinal()" novalidate>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Carrier</div>
-            <div class="col-sm-9">
-              <select>
-                <option>Select a carrier</option>
-              </select>
+        <br/>
+        <form [formGroup]="finalForm" (ngSubmit)="loadCommissionFinal()">
+          <div formGroupName="searchParam">
+            <div *ngIf="!finalForm.valid">
+              <div class="row" *ngIf="!finalForm.get('searchParam.commissionRateMin').valid && 
+                finalForm.get('searchParam.commissionRateMin').touched 
+                && finalForm.get('searchParam.commissionRateMin').errors['IsOutOfRange']">
+                <div class="col-sm-3 text-right"></div>
+                  <div class="col-sm-9">Please enter commission rate min within 1 to 100 value</div>  
+              </div>
+              <div class="row" *ngIf="!finalForm.get('searchParam.commissionRateMax').valid &&
+                finalForm.get('searchParam.commissionRateMax').touched && 
+                finalForm.get('searchParam.commissionRateMax').errors['IsOutOfRange']">
+                <div class="col-sm-3 text-right"></div>
+                  <div class="col-sm-9">Please enter commission rate max within 1 to 100 value</div>  
+              </div>
+            </div>
+            <br/>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Carrier</div>
+              <div class="col-sm-9">
+                <select formControlName="carrier">
+                  <option [ngValue]="-1">Select a carrier</option>
+                  <option *ngFor="let carrier of carrierFinalList" [ngValue]="carrier.carrId"> {{carrier.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Product</div>
+              <div class="col-sm-9">
+                <select formControlName="product">
+                  <option [ngValue]="-1">Select a product</option>
+                  <option *ngFor="let product of productFinalList" [ngValue]="product.prodId">{{product.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Policy Number</div>
+              <div class="col-sm-9">
+                <input type="text" formControlName="policyNumber"
+                (keyup.enter) = "loadCommissionFinal()"
+                >
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Policy Year</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="policyYearMin" appNumeric numericType="number"
+                (keyup.enter) = "loadCommissionFinal()">
+                &nbsp;
+                <input type="number" formControlName="policyYearMax" appNumeric numericType="number"
+                (keyup.enter) = "loadCommissionFinal()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Activity</div>
+              <div class="col-sm-9">
+                <select formControlName="activity">
+                  <option [ngValue]="-1">Select an activity</option>
+                  <option *ngFor="let activity of activityFinalList" [ngValue]="activity.actCd">{{activity.descTxt}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Gross Premium Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="grossPremiumAmountMin"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionFinal()"
+                >
+                &nbsp;
+                <input type="number" formControlName="grossPremiumAmountMax"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionFinal()"
+                  >
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Premium Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionPremiumAmountMin"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionFinal()">
+                &nbsp;
+                <input type="number" formControlName="commissionPremiumAmountMax"
+                appNumeric
+                  numericType="decimal" (keyup.enter)="loadCommissionFinal()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Rate</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionRateMin"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionFinal()">
+                &nbsp;
+                <input type="number" formControlName="commissionRateMax"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionFinal()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Commission Amount</div>
+              <div class="col-sm-9">
+                <input type="number" formControlName="commissionAmountMin"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionFinal()">
+                &nbsp;
+                <input type="number" formControlName="commissionAmountMax"
+                appNumeric numericType="decimal"
+                  (keyup.enter)="loadCommissionFinal()">
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Status</div>
+              <div class="col-sm-9">
+                <select formControlName="status">
+                  <option [ngValue]="-1">Select a status</option>
+                  <option *ngFor="let status of statusFinalList" [ngValue]="status.statCd">{{status.descTxt}}</option>                
+                </select>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm-3 text-right">Transaction Date</div>
+              <div class="col-sm-9">
+                <input type="date" formControlName="transactionDateMin">
+                &nbsp;
+                <input type="date" formControlName="transactionDateMax">
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-3 text-right"></div>
+              <div class="col-sm-9">
+                <button type="submit" class="btn btn-primary" [disabled]="!finalForm.valid && finalForm.touched"><i class="fa fa-search"></i> Search</button>&nbsp;
+                <button type="button" class="btn btn-info" (click)="commissionFinalResetFilter()"><i class="fa fa-undo"></i> Reset</button>
+              </div>
             </div>
           </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Product</div>
-            <div class="col-sm-9">
-              <select>
-                <option>Select a product</option>
-              </select>
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Policy Number</div>
-            <div class="col-sm-9">
-              <input type="text">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Policy Year</div>
-            <div class="col-sm-9">
-              <input type="number">
-              &nbsp;
-              <input type="number">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Activity</div>
-            <div class="col-sm-9">
-              <select>
-                <option [ngValue]="-1">Select an activity</option>
-              </select>
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Gross Premium Amount</div>
-            <div class="col-sm-9">
-              <input type="number">
-              &nbsp;
-              <input type="number">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Commission Premium Amount</div>
-            <div class="col-sm-9">
-              <input type="number">
-              &nbsp;
-              <input type="number">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Commission Rate</div>
-            <div class="col-sm-9">
-              <input type="number">
-              &nbsp;
-              <input type="number">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Commission Amount</div>
-            <div class="col-sm-9">
-              <input type="number">
-              &nbsp;
-              <input type="number">
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Status</div>
-            <div class="col-sm-9">
-              <select [(ngModel)]="commissionErrorSearchParam.status" name="commissionErrorSearchParam.status">
-                <option [ngValue]="-1">Select a status</option>
-                <option *ngFor="let status of statusErrorList" [ngValue]="status.statCd">{{status.descTxt}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row" style="padding-bottom: 10px;">
-            <div class="col-sm-3 text-right">Transaction Date</div>
-            <div class="col-sm-9">
-              <input type="date" name="transactionDateMin" [(ngModel)]="commissionErrorSearchParam.transactionDateMin">
-              &nbsp;
-              <input type="date" name="transactionDateMax" [(ngModel)]="commissionErrorSearchParam.transactionDateMax">
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-sm-3 text-right"></div>
-            <div class="col-sm-9">
-              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>&nbsp;
-              <button type="button" class="btn btn-info"><i class="fa fa-undo"></i> Reset</button>
-            </div>
-          </div>
+          
         </form>
+        <div class="row mt-3">
+          <div class="col-lg-12 col-md-3 col-sm-6">            
+            <button type="button" class="btn btn-info"
+              (click)="openCommissionMultiRevalidateModal(templateCommissionFinalRevalidate)"><i class="fa fa-server"></i>
+              Multi Revalidate</button>&nbsp;
+            <button type="button" class="btn btn-info" (click)="exportAsXLSX()"><i class="fa fa-table"></i>
+              Export</button>
+          </div>
+          <div class="col-lg-12 col-md-3 col-sm-6">
+            <table>
+              <tr>
+                <th></th>
+                <th></th>                
+                <th>
+                  <label class="container">
+                    <input type="checkbox" name="AllCommissionFinalCheckbox" (change)="allCommissionFinal($event)"
+                      #AllCommissionFinalCheckbox />
+                  </label>
+                </th>
+                <th>Carrier</th>
+                <th>Product</th>
+                <th>Policy Number</th>
+                <th>Policy Year</th>
+                <th>Activity</th>
+                <th>Gross Premium Amount</th>
+                <th>Commission Premium Amount</th>
+                <th>Commission Rate</th>
+                <th>Commission Amount</th>
+                <th>Status Code</th>
+                <th>Modified Date</th>
+                <th>Modified By</th>
+              </tr>
+              <tr *ngFor="let commissionFinal of commissionFinalList">
+                <td>
+                  <button type="button" class="btn"
+                    [routerLink]="['edit',commissionFinal.commId,'final']"                                     
+                    routerLinkActive="router-link-active" title="Edit"><i class="fa fa-edit"></i></button>
+                </td>
+                <td>
+                  <button type="button" class="btn"
+                    (click)="openCommissionFinalRevalidateModal(templateCommissionFinalRevalidate, commissionFinal)"
+                    title="Revalidate"><i class="fa fa-server"></i></button>
+                </td>                
+                <td>
+                  <label class="container">
+                    <input type="checkbox" name="isRevalidated" [(ngModel)]="commissionFinal.isRevalidated"
+                      (change)="commissionFinalItemSelected()" />
+                  </label>
+                </td>
+                <td>
+                  {{commissionFinal.carr.name}}
+                </td>
+                <td>
+                  {{commissionFinal.prod.name}}
+                </td>
+                <td>
+                  {{commissionFinal.polNum}}
+                </td>
+                <td>
+                  {{commissionFinal.yrNum}}
+                </td>
+                <td>
+                  {{commissionFinal.actCdNavigation.descTxt}}
+                </td>
+                <td>
+                  {{commissionFinal.grsPremAmt | number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionFinal.commPremAmt| number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionFinal.commRt}}
+                </td>
+                <td>
+                  {{commissionFinal.commAmt | number:'1.2'}}
+                </td>
+                <td>
+                  {{commissionFinal.statCdNavigation.descTxt}}
+                </td>
+                <td>
+                  {{commissionFinal.modDt | date :'MM/dd/yyyy h:mm:ss a '}}
+                </td>
+                <td>
+                  {{commissionFinal.modById}}
+                </td>
+              </tr>
+            </table>
+          </div>          
+            <div class="col-lg-12 col-md-3 col-sm-6">
+            <pagination [boundaryLinks]="true" [totalItems]="paginationcommissionFinal.totalItems"
+              [itemsPerPage]="paginationcommissionFinal.itemsPerPage"
+              [(ngModel)]="paginationcommissionFinal.currentPage" (pageChanged)="pageFinalChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>            
+          </div>
+        </div>
       </tab>
 
     </tabset>
@@ -325,8 +719,15 @@
 </div>
 <ng-template #templateCommissionErrorDelete>
   <div class="modal-body text-center">
-    <p>Are you sure you want to delete this record?</p>
+    <p>Are you sure you want to delete the record(s)?</p>
     <button type="button" class="btn btn-info" (click)="confirm()">Yes</button>&nbsp;
     <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
+<ng-template #templateCommissionFinalRevalidate>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to revalidate the record(s)?</p>
+    <button type="button" class="btn btn-info" (click)="confirmRevalidate()">Yes</button>&nbsp;
+    <button type="button" class="btn btn-primary" (click)="declineRevalidate()">No</button>
   </div>
 </ng-template>

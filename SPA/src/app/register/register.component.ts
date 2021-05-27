@@ -10,7 +10,7 @@ import { AuthService } from '../_service/auth.service';
 })
 export class RegisterComponent implements OnInit {
   @Output() registerMode = new EventEmitter();
-  @ViewChild('r') registerForm: NgForm;  
+  @ViewChild('r') registerForm: NgForm;
  
   constructor(private autService: AuthService) { }
 

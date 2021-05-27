@@ -1,0 +1,5 @@
+D:\PLD\PLD.WebApi.Repositories\obj\Debug\net5.0\PLD.WebApi.Repositories.csprojAssemblyReference.cache
+D:\PLD\PLD.WebApi.Repositories\obj\Debug\net5.0\PLD.WebApi.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.WebApi.Repositories\obj\Debug\net5.0\PLD.WebApi.Repositories.AssemblyInfoInputs.cache
+D:\PLD\PLD.WebApi.Repositories\obj\Debug\net5.0\PLD.WebApi.Repositories.AssemblyInfo.cs
+D:\PLD\PLD.WebApi.Repositories\obj\Debug\net5.0\PLD.WebApi.Repositories.csproj.CoreCompileInputs.cache

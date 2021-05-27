@@ -1,0 +1,12 @@
+D:\PLD\PLD.DTO\bin\Release\net5.0\PLD.DTO.deps.json
+D:\PLD\PLD.DTO\bin\Release\net5.0\PLD.DTO.dll
+D:\PLD\PLD.DTO\bin\Release\net5.0\ref\PLD.DTO.dll
+D:\PLD\PLD.DTO\bin\Release\net5.0\PLD.DTO.pdb
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.AssemblyInfoInputs.cache
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.AssemblyInfo.cs
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.csproj.CoreCompileInputs.cache
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.dll
+D:\PLD\PLD.DTO\obj\Release\net5.0\ref\PLD.DTO.dll
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.pdb
+D:\PLD\PLD.DTO\obj\Release\net5.0\PLD.DTO.csprojAssemblyReference.cache

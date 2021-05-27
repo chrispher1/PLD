@@ -15,4 +15,8 @@ getAllStatus(): Observable<Status[]> {
  return this.http.get<Status[]>(this.baseUrl + 'status');
 }
 
+getStatusForCommissionForm(): Observable<Status[]> {
+  return this.http.get<Status[]>(this.baseUrl + 'status/forCommissionForm/P');
+ }
+
 }

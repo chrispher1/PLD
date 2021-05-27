@@ -1,0 +1,44 @@
+#backgrounddiv{
+    background-color: black;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    height: 200%;
+    width: 100%;
+    padding: 40vh;    
+    z-index: 100;
+    opacity: 0.8;
+    margin:0px;
+}
+
+#mainform{
+    background-color: white;
+    top: 150px;
+    left: 150px;    
+    width: 80vw;
+    position:absolute;
+    z-index: 120;    
+}
+
+#deletedivbackground{
+    background-color: black;
+    top: 150px;
+    left: 150px;    
+    width: 80vw;
+    height: 55vh;
+    position:absolute;
+    z-index: 160; 
+    opacity: 0.8;
+}
+
+#deletediv{
+    background-color: white;
+    top: 200px;
+    left: 500px;
+    height: 30vh;
+    width: 30vw;
+    position:absolute;
+    z-index: 170; 
+}

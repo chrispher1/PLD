@@ -1,0 +1,12 @@
+D:\PLD\PLD.WebApi.Models\bin\Debug\net5.0\PLD.WebApi.Models.deps.json
+D:\PLD\PLD.WebApi.Models\bin\Debug\net5.0\PLD.WebApi.Models.dll
+D:\PLD\PLD.WebApi.Models\bin\Debug\net5.0\ref\PLD.WebApi.Models.dll
+D:\PLD\PLD.WebApi.Models\bin\Debug\net5.0\PLD.WebApi.Models.pdb
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.csprojAssemblyReference.cache
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.AssemblyInfoInputs.cache
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.AssemblyInfo.cs
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.csproj.CoreCompileInputs.cache
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.dll
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\ref\PLD.WebApi.Models.dll
+D:\PLD\PLD.WebApi.Models\obj\Debug\net5.0\PLD.WebApi.Models.pdb

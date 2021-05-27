@@ -66,6 +66,11 @@ import { ProductComponent } from './product/product.component';
 import { RateComponent } from './rate/rate.component';
 import { TransactionTypeComponent} from './transactiontype/transactiontype.component';
 import { CommissionNewComponent } from './commission/commission-new/commission-new.component';
+import { CommissionEditComponent } from './commission/commissionedit/commissionedit.component';
+import { RateValidatorDirective } from './_directives/rate-validator.directive';
+import { CommissionFinalListResolver } from './_resolvers/commissionfinallist.resolver';
+import { StatusListForCommissionFormResolver } from './_resolvers/statuslistforcommissionform.resolver';
+import { CommissionAllListResolver } from './_resolvers/commissionalllist.resolver';
 
 export function tokenGetter() {   
    return localStorage.getItem('token');
@@ -96,7 +101,9 @@ export function tokenGetter() {
       ProductComponent,
       RateComponent,
       TransactionTypeComponent,
-      CommissionNewComponent
+      CommissionNewComponent,
+      CommissionEditComponent,
+      RateValidatorDirective
    ],
    entryComponents: [ CommissionDetailComponent],
    imports: [
@@ -126,6 +133,7 @@ export function tokenGetter() {
       CommissionDetailResolver,
       AlertifyService,
       CommissionErrorListResolver,
+      CommissionFinalListResolver,
       CarrierListResolver,
       ProductService,
       ProductListResolver,
@@ -133,11 +141,13 @@ export function tokenGetter() {
       ActivityListResolver,
       StatusService,
       StatusListResolver,
+      StatusListForCommissionFormResolver,
       AuthService,
       ErrorInterceptorProvider,
       DecimalPipe,
       CurrencyPipe,
-      ExcelService      
+      ExcelService,
+      CommissionAllListResolver      
    ],
    bootstrap: [
       AppComponent
